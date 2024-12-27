@@ -1,10 +1,11 @@
-import LibraryCard from '@/Components/LibraryCard'
+
+import SearchUser from '@/Components/SearchUser'
 import React from 'react'
 
 const Detail = () => {
   return (
     <div>
-      <LibraryCard />
+      <SearchUser />
     </div>
   )
 }
