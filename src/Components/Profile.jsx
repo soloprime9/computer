@@ -104,7 +104,7 @@ const Profile = () => {
     <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">
-          <img src={user.profilePicture || "/1.jpg"} alt="Profile Picture" className="img-fluid rounded-circle w-12 h-12 rounded-full mr-4 " />
+          <img src={user.profilePicture || "/1.jpg"} alt="Profile Picture" className=" w-12 h-12 rounded-full mr-4 " />
           <h1 className="text-2xl font-bold">{user.username}</h1>
         </div>
 
