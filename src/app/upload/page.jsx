@@ -4,7 +4,7 @@ import axios from "axios";
 
 const UploadPost = () => {
   const [file, setFile] = useState(null);
-  const [caption, setCaption] = useState("");
+  const [title, settitle] = useState("");
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(null);
 
@@ -19,25 +19,26 @@ const UploadPost = () => {
     reader.readAsDataURL(selectedFile); // Reads the file and triggers `onload`
   };
 
-  const handleCaptionChange = (e) => {
-    setCaption(e.target.value);
+  const handletitleChange = (e) => {
+    settitle(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!file || !caption) {
-      setMessage("Please provide both file and caption.");
+    if (!file || !title) {
+      setMessage("Please provide both file and title.");
       return;
     }
 
     const formData = new FormData();
-    formData.append("mediaData", file); // "mediaData" is the field name for the file
-    formData.append("caption", caption); // Add caption to the form data
+    formData.append("file", file); // "file" is the field name for the file
+    formData.append("title", title); // Add title to the form data
 
     try {
       const token = localStorage.getItem("token");
-      console.log(token.userid);
+
+      console.log(token.UserId);
 
       const response = await axios.post("http://localhost:4000/post/upload", formData, {
         headers: {
@@ -82,14 +83,14 @@ const UploadPost = () => {
           </div>
         )}
         <div className="mt-10 items-around text-lg text-center">
-          <label htmlFor="caption" className=" mr-3">Caption</label>
+          <label htmlFor="title" className=" mr-3">title</label>
           <input
             type="text"
             className="rounded text-black p-4 text-xl"
-            id="caption"
-            value={caption}
-            onChange={handleCaptionChange}
-            placeholder=" Enter caption"
+            id="title"
+            value={title}
+            onChange={handletitleChange}
+            placeholder=" Enter title"
           />
         </div>
         <button type="submit" className="w-full border-2 rounded bg-red-600 p-3 mt-3 text-xl font-bold">Upload Post</button>

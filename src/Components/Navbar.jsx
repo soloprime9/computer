@@ -8,7 +8,7 @@ const Navbar = () => {
 
 
   return (
-    <header className="bg-gray-900 text-white">
+    <header className="bg-blue-100 text-black-500">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Left Section: Logo */}
         <div className="flex items-center space-x-3">
@@ -45,23 +45,12 @@ const Navbar = () => {
         {/* Right Section: Navigation Links */}
         <nav className="flex items-center space-x-6">
           <a
-            href="#"
+            href="/profile/[name]"
             className="text-lg font-bold text-white hover:text-yellow-100"
           >
-            Home
+            Profile
           </a>
-          <a
-            href="#"
-            className="text-lg font-bold text-white hover:text-yellow-100"
-          >
-            Explore
-          </a>
-          <a
-            href="#"
-            className="text-lg font-bold text-white hover:text-yellow-100"
-          >
-            About
-          </a>
+          
         </nav>
 
       </div>

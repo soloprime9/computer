@@ -6,7 +6,7 @@ import axios from "axios";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
+    email: "", 
     password: "",
   });
   const [successMessage, setSuccessMessage] = useState("");
@@ -24,20 +24,19 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const response = await axios.post("http://localhost:4000/user/add", formData)
+    await axios.post("http://localhost:4000/user/add", formData)
 
     
      
-    .then( () =>{
-        console.log(response.data);
-        setSuccessMessage(response.data);
+    .then( (result) =>{
+        console.log("Result: ", result);
+        setSuccessMessage("Successfully Created Account Your");
         
       } )
-
-      
       
      .catch( (error) => {
       console.log("Error:", error);
+      setSuccessMessage(error.message);
       
       }
       
