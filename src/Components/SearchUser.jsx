@@ -63,14 +63,14 @@ const SearchUser = () => {
             result && result.length > 0 ?(
                 
                 result.map((solo) => (
-                    <div key={solo._id} className="w-full mb-5 py-2 pl-10 pr-4 bg-gray-800 text-white rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between">
+                    <div key={solo._id} className="w-full mb-5 mt-4 py-2 pl-10 pr-4 bg-blue-500 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center">
                        
-                        <div className='flex'>
-                        <img src={solo.profilePicture || "/1.jpg"} alt="" className='w-10 h-10 rounded-full border-2' />
+                        <div className='flex mr-10'>
+                        <img src={solo.profilePicture || "/1.jpg"} alt="" className="w-10 h-10 mr-3 rounded-full border-2" />
 
-                        <p className='font-bold ml-2'><Link href={"/profile/" + solo.username}> {solo.username}</Link></p>
+                        <p className='font-bold ml-2'><Link href={"/profile/" + solo.username} className="text-white no-underline"> {solo.username}</Link></p>
                         </div>
-                        <button className='border-2 bg-blue-300 text-sm font-bold p-2 rounded-md'><Link href={"/profile/" +solo.username}>View Profile</Link></button>
+                        <button className="border-2 bg-blue-300 text-sm font-bold p-2 rounded-md"><Link href={"/profile/" +solo.username} className="text-white text-xl font-bold">View Profile</Link></button>
                     </div>
                 )))
                 :(
