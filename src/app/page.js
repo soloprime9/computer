@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { decode as jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
+import Image from "next/image";
 
 
 
@@ -92,7 +93,7 @@ const Feed = () => {
         posts.map((post) => (
           <div key={post._id} className="m-4 border-2 p-2 rounded">
             <div className="flex items-center mb-2">
-              <img src={post?.userId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
+              <img   src={post?.userId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
               <h2 className="text-xl font-semibold"><a href={"/profile/" + post?.userId?.username}> {post?.userId?.username || "Unknown User"}</a></h2>
             </div>
             <div>
