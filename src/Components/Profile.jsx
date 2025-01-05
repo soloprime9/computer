@@ -9,7 +9,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [iOwner, setIsOwner] = useState(false);
 
-  const baseURL = "http://localhost:4000/";
+  const baseURL = "https://backend-k.vercel.app/";
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -26,7 +26,7 @@ const Profile = () => {
       console.log("userId: ", loggedUserId);
 
       try {
-        const result = await axios.get(`http://localhost:4000/user/${username}`, {
+        const result = await axios.get(`https://backend-k.vercel.app/user/${username}`, {
           headers: {
             'x-auth-token': token,
           },
@@ -59,7 +59,7 @@ const Profile = () => {
     try {
       setLoading(true);
       const result = await axios.post(
-        `http://localhost:4000/user/follow/${profile.user._id}`,
+        `https://backend-k.vercel.app/user/follow/${profile.user._id}`,
         {},
         {
           headers: {

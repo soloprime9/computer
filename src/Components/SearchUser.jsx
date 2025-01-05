@@ -17,7 +17,7 @@ const SearchUser = () => {
             
           }
 
-        axios.get("http://localhost:4000/user/mango/search", {
+        axios.get("https://backend-k.vercel.app/user/mango/search", {
             params: {query},
         })
         .then((result) =>{
