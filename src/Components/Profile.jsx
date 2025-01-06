@@ -159,7 +159,7 @@ const Profile = () => {
                 />
               )}
               <p className="p-4 text-lg font-bold">{post.title}</p>
-              <p className="p-4 text-lg font-bold">{("Id: ", baseURL +post.media)}</p>
+              <p className="p-4 text-lg font-bold">{("Id: ", baseURL +post.media)}</p> 
               
 
 
