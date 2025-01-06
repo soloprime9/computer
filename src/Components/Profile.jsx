@@ -22,6 +22,7 @@ const Profile = () => {
         setError("You must be logged in to view this profile.");
         return;
       }
+      console.log("Token: ", token);
       const loggedUserId = JSON.parse(atob(token.split('.')[1])).UserId;
       console.log("userId: ", loggedUserId);
 
