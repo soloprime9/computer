@@ -40,7 +40,7 @@ const UploadPost = () => {
 
       console.log(token.UserId);
 
-      const response = await axios.post("http://localhost:4000/post/upload", formData, {
+      const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
         headers: {
           "x-auth-token": token, // Include the token in the headers for authentication
         },
