@@ -37,7 +37,10 @@ const UploadPost = () => {
 
     try {
       const token = localStorage.getItem("token");
-
+      if(!token){
+        console.log("Userid Not Found");
+      }
+    
       console.log(token.UserId);
 
       const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
