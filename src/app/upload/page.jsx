@@ -15,7 +15,7 @@ const UploadPost = () => {
     setFile(selectedFile);
 
     const reader = new FileReader();
-    reader.onload = (e) => setPreview(e.target.result); // Generate a preview URL
+    reader.onload = (e) => setPreview(e.target.result);  // Generate a preview URL
     reader.readAsDataURL(selectedFile); // Reads the file and triggers `onload`
   };
 
@@ -41,7 +41,7 @@ const UploadPost = () => {
         console.log("Userid Not Found");
       }
     
-      console.log(token.UserId);
+      console.log(token);
 
       const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
         headers: {
