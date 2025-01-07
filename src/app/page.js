@@ -286,7 +286,7 @@ Machine Learning: AI is used to develop systems that can learn from data and imp
 
     <div className="bg-white shadow-md rounded-lg p-6">
 	<h2 className="text-2xl font-semibold text-blue-500 mb-4">
-	Next All Questions will be Added Soon !! <h2>
+	Next All Questions will be Added Soon !! </h2>
 	</div>
 
       {/* More questions styled similarly */}
