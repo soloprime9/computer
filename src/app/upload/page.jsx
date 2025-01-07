@@ -38,7 +38,7 @@ const UploadPost = () => {
     try {
       const token = localStorage.getItem("token");
 
-      console.log(token.UserId);
+      console.log(token);
 
       const response = await axios.post("http://localhost:4000/post/upload", formData, {
         headers: {
@@ -111,3 +111,4 @@ export default UploadPost;
 
 
 
+// 

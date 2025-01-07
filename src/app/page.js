@@ -17,7 +17,7 @@ const Feed = () => {
   const [userId, setUserId] = useState(null);
 
 
-  const baseURL = "https://backend-k.vercel.app/";
+  const baseURL = "http://localhost:4000/";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,7 +33,7 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     try {
-      const { data } = await axios.get("https://backend-k.vercel.app/post/mango/getall");
+      const { data } = await axios.get("http://localhost:4000/post/mango/getall");
       setPosts(data);
       console.log(data);
     } catch (err) {
@@ -44,7 +44,7 @@ const Feed = () => {
   const handleLikePost = async (postId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.post(`https://backend-k.vercel.app/post/like/${postId}`, {}, {
+      await axios.post(`http://localhost:4000/post/like/${postId}`, {}, {
         headers: {
           "x-auth-token": token,
         },
@@ -61,7 +61,7 @@ const Feed = () => {
 
     try {
       await axios.post(
-        `https://backend-k.vercel.app/post/comment/${postId}`,
+        `http://localhost:4000/post/comment/${postId}`,
         { CommentText, userId },
         {
           headers: {
