@@ -221,6 +221,74 @@ const SectionA = () => (
         </p>
       </div>
 
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+            5. Describe the concept of Unification in AI.        </h2>
+			        <p>
+			          Unification is a process in artificial intelligence that involves combining two or more logical expressions into a single expression. This is typically done to identify common variables between the expressions and to simplify the resulting expression. Unification is a key component of logical reasoning and problem-solving in AI systems.
+			        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+		6. Write some general syntax for a Prolog program.        </h2>
+        <p>
+          Prolog is a programming language based on formal logic. A Prolog program consists of a set of rules and facts, which are used to reason about a problem. The general syntax for a Prolog program is as follows:
+Facts: fact_name(argument1, argument2, ...).
+Rules: rule_name(argument1, argument2, ...) :- body.
+Queries: ?- query.
+        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+7. Define speech act theory and classify the given example.        </h2>
+        <p>
+          Speech act theory is a linguistic theory that posits that language is used to perform actions, rather than simply to convey information. The theory categorizes speech acts into several types, including:
+Assertives: statements that convey information
+Directives: requests or commands
+Commissives: promises or commitments
+Expressives: expressions of emotion or attitude
+Declarations: statements that change the world
+The given example, "The door is closed," can be classified as an assertive, as it conveys information about the state of the door.
+        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+8. Differentiate between reactive agent and deliberative agent.        </h2>
+        <p>
+         A reactive agent is a software agent that responds to changes in its environment without considering the long-term consequences of its actions. In contrast, a deliberative agent is a software agent that considers the long-term consequences of its actions and plans its behavior accordingly.
+        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+9. List various applications of Artificial Intelligence.        </h2>
+        <p>
+          Artificial intelligence has numerous applications across various industries, including:
+Robotics: AI is used to design and control robots that can perform tasks that typically require human intelligence.
+Natural Language Processing (NLP): AI is used to develop systems that can understand and generate human language.
+Computer Vision: AI is used to develop systems that can interpret and understand visual data from images and videos.
+Expert Systems: AI is used to develop systems that can mimic the decision-making abilities of a human expert in a particular domain.
+Machine Learning: AI is used to develop systems that can learn from data and improve their performance over time.
+        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-blue-500 mb-4">
+10. Discuss the concept of Information Retrieval.        </h2>
+        <p>
+          Information retrieval is the process of retrieving information from a collection of data, such as a database or a document repository. The goal of information retrieval is to identify the most relevant information that matches a user's query. Information retrieval systems use various techniques, such as indexing, ranking, and filtering, to retrieve and rank relevant information.
+        </p>
+      </div>
+
+    <div className="bg-white shadow-md rounded-lg p-6">
+	<h2 className="text-2xl font-semibold text-blue-500 mb-4">
+	Next All Questions will be Added Soon !! <h2>
+	</div>
+
       {/* More questions styled similarly */}
     </div>
   </div>
