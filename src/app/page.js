@@ -98,15 +98,26 @@ const Feed = () => {
             </div>
             <div>
               {/* Check if post.media exists and is a string before using endsWith */}
-{post.media  ? (
+{post.media ? (
   post.media.endsWith(".mp4") ? (
-    <video src={baseURL + post.media || ""} className="w-full" autoPlay controls muted />
+    <video
+      src={`${baseURL}${post.media.replace(/\\/g, "/")}`} // Replace backward slashes with forward slashes
+      className="w-full"
+      autoPlay
+      controls
+      muted
+    />
   ) : (
-    <img src={baseURL + post.media || ""} alt="Post" className="w-full" />
+    <img
+      src={`${baseURL}${post.media.replace(/\\/g, "/")}`} // Ensure proper formatting
+      alt="Post"
+      className="w-full"
+    />
   )
 ) : (
-  <div></div> // Fallback if media is missing
+  <div>No media available</div>
 )}
+
 
             </div>
             <div className="flex justify-between mt-2">
