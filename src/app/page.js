@@ -100,9 +100,9 @@ const Feed = () => {
               {/* Check if post.media exists and is a string before using endsWith */}
 {post.media  ? (
   post.media.endsWith(".mp4") ? (
-    <video src={baseURL + post.media || ""} className="w-full" autoPlay controls muted />
+    <video src={post.media || ""} className="w-full" autoPlay controls muted />
   ) : (
-    <img src={baseURL + post.media || ""} alt="Post" className="w-full" />
+    <img src={post.media || ""} alt="Post" className="w-full" />
   )
 ) : (
   <div></div> // Fallback if media is missing

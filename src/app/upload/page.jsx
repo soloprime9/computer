@@ -15,7 +15,7 @@ const UploadPost = () => {
     setFile(selectedFile);
 
     const reader = new FileReader();
-    reader.onload = (e) => setPreview(e.target.result); // Generate a preview URL
+    reader.onload = (e) => setPreview(e.target.result);  // Generate a preview URL
     reader.readAsDataURL(selectedFile); // Reads the file and triggers `onload`
   };
 
@@ -37,8 +37,13 @@ const UploadPost = () => {
 
     try {
       const token = localStorage.getItem("token");
-
+      if(!token){
+        console.log("Userid Not Found");
+      }
+    
       console.log(token);
+
+     
 
       const response = await axios.post("http://localhost:4000/post/upload", formData, {
         headers: {
@@ -110,5 +115,3 @@ export default UploadPost;
 
 
 
-
-// 
