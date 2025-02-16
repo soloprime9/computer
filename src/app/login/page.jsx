@@ -2,10 +2,12 @@
 'use client';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const Login = () => {
+  
+  const [success, setsuccess] = useState("");
 
   const loginForm = useFormik({
     initialValues: {
@@ -17,18 +19,19 @@ const Login = () => {
 
       axios.post('http://localhost:4000/user/login', values)
         .then((result) => {
-          console.log(result.data);
-          toast.success('Login Successful');
+          console.log(result.data.message);
+          alert(result.data.message);
+          setsuccess(result.data.message)
 
           localStorage.setItem('token', result.data.token);
-          
+          window.location.href= "/";
 
         }).catch((err) => {
 
-
-
-          console.log(err);
-          toast.error('Login Failed');
+          alert(err.response.data.message);
+          console.log(err.response.data.message);
+          setsuccess(err.response.data.message);
+          
         });
     }
   })
@@ -45,7 +48,7 @@ const Login = () => {
               Don't have an account yet?
               <a
                 className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                href="../examples/html/signup.html"
+                href="/signup"
               >
                 Sign up here
               </a>
@@ -191,6 +194,7 @@ const Login = () => {
                 >
                   Sign in
                 </button>
+                <p className='text-lg font-bold text-center text-red-500'>{success}</p>
               </div>
             </form>
             {/* End Form */}

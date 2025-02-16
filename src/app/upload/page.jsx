@@ -1,12 +1,32 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import jwt, {decode} from "jsonwebtoken";
 
 const UploadPost = () => {
   const [file, setFile] = useState(null);
   const [title, settitle] = useState("");
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if (!token) {
+        window.location.href ="/login";
+        console.log("Token is not Available");
+      }
+      else{
+        try {
+          const decoded = jwt.decode(token);
+          console.log("decodeddata: ",decoded);
+          
+        } catch (err) {
+          console.log("Invalid Token:" , err);
+          return window.location.href="/login";
+        }
+      }
+    }, []);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -54,53 +74,63 @@ const UploadPost = () => {
       setMessage("Post uploaded successfully!");
       console.log("Successfully Uploaded Post: ", response.data);
     } catch (error) {
-      setMessage("Yaar Space nahi hai, please 10MB se kam size Upload karo");
+      setMessage("Internal Server Error");
       console.log(error);
     }
   };
 
   return (
-    <div className="m-40 border-2 justify-center  bg-blue-700 text-white font-bold rounded p-5">
-      <h2 className="text-2xl py-4 text-center">Upload a New Post</h2>
+    <div className="mt-40">
+      <div className="lg:m-20 border-2 justify-center  bg-blue-700 text-white font-bold rounded py-2">
+      <h2 className="text-2xl py-2 text-center">Upload a New Post</h2>
       <form onSubmit={handleSubmit}>
         <div className="justify-center items-center text-center">
-          <label htmlFor="file" className="text-xl my-6">Select Image or Video</label>
-          <input type="file" id="file" onChange={handleFileChange}  placeholder="hello" />
+          
+        <div className="relative border-2 border-dashed rounded-md m-1 h-20">
+  <input type="file" id="file" onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+  <label htmlFor="file" className="absolute inset-0 w-full h-full flex items-center justify-center text-gray-600 cursor-pointer">
+    Select Media
+  </label>
+</div>
         </div>
+        <div className="h-100">
         {preview && (
-          <div style={{ marginTop: "20px" }} className="text-center justify-center items-center">
+          <div  className="relative flex justify-center">
             {file.type.startsWith("image/") ? (
-              <img className="justify-center text-around mr-10"
+              <img className="border-2 rounded-md border-white justify-center items-center text-center max-h-64"
                 src={preview}
                 alt="Preview"
-                style={{ maxWidth: "300px", display: "block" }}
+                
               />
             ) : (
               <video
+              className=" border-2 rounded-md border-white justify-center items-center text-center max-h-64 "
                 src={preview}
-                
+                loop
                 controls
                 autoPlay
                 muted
-                style={{ maxWidth: "300px", display: "block" }}
+                
               />
             )}
           </div>
         )}
-        <div className="mt-10 items-around text-lg text-center">
-          <label htmlFor="title" className=" mr-3">title</label>
+        </div>
+        <div className="mt-1 items-around text-lg text-center">
+          
           <input
             type="text"
-            className="rounded text-black p-4 text-xl"
+            className="w-full text-black p-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
             id="title"
             value={title}
             onChange={handletitleChange}
             placeholder=" Enter title"
           />
         </div>
-        <button type="submit" className="w-full border-2 rounded bg-red-600 p-3 mt-3 text-xl font-bold">Upload Post</button>
+        <button type="submit" className="w-full border-2 rounded bg-yellow-600 p-2 mt-3 text-xl font-bold hover:bg-red-700 transition">Upload Post</button>
       </form>
       {message && <p className="text-lg text-center text-red-400 mt-4">{message}</p>}
+      </div>
     </div>
   );
 };

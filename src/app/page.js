@@ -1,10 +1,7 @@
-
-
-
 'use client';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { decode as jwtDecode } from "jwt-decode";
+import jwt, { decode } from 'jsonwebtoken';
 import { Link } from "react-router-dom";
 import Image from "next/image";
 
@@ -14,21 +11,32 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [CommentText, setCommentText] = useState("");
   const [commentBoxOpen, setCommentBoxOpen] = useState({});
-  const [userId, setUserId] = useState(null);
+  const [UserId, setUserId] = useState(null);
 
 
-  const baseURL = "http://localhost:4000/";
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+
+  useEffect( () => {
+    const fetchToken = async()=>{
+    const token = await localStorage.getItem("token");
+    console.log(token);
+    if (!token) {
+      return window.location.href ="/login";
+      
+    }
+    else{
       try {
-        const decoded = jwtDecode(token);
-        setUserId(decoded.userid);
+        const decoded = jwt.decode(token);
+        console.log("decodeddata: ",decoded);
+        setUserId(decoded.UserId);
       } catch (err) {
-        console.log("Invalid Token:", err);
+        console.log("Invalid Token:");
+        return window.location.href="/login";
       }
     }
+  };
+  fetchToken();
+
   }, []);
 
   const fetchPosts = async () => {
@@ -62,7 +70,7 @@ const Feed = () => {
     try {
       await axios.post(
         `http://localhost:4000/post/comment/${postId}`,
-        { CommentText, userId },
+        { CommentText, UserId },
         {
           headers: {
             "x-auth-token": token,
@@ -88,25 +96,25 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 md:p-6 lg:pr-60 lg:pl-60">
+    <div className="container mx-auto ">
       {posts && posts.length > 0 ? (
         posts.map((post) => (
-          <div key={post._id} className="m-4 border-2 p-2 rounded">
+          <div key={post._id} className="h-100 w-100 border-2 rounded-md border-blue-200 mt-4 border-2 p-2 rounded">
             <div className="flex items-center mb-2">
-              <img   src={post?.userId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
+              <img   src={post?.UserId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
               <h2 className="text-xl font-semibold"><a href={"/profile/" + post?.userId?.username}> {post?.userId?.username || "Unknown User"}</a></h2>
             </div>
-            <div>
+            <div className="rounded-md overflow-hidden border-t-2">
               {/* Check if post.media exists and is a string before using endsWith */}
-{post.media  ? (
-  post.media.endsWith(".mp4") ? (
-    <video src={post.media || ""} className="w-full" autoPlay controls muted />
-  ) : (
-    <img src={post.media || ""} alt="Post" className="w-full" />
-  )
-) : (
-  <div></div> // Fallback if media is missing
-)}
+            {post.media  ? (
+              post.media.endsWith(".mp4") ? (
+                <video src={post.media || ""} className="w-full h-64 object-cover" autoPlay controls muted />
+              ) : (
+                <img src={post.media || ""} alt="Post" className=" w-full h-64 object-cover" />
+              )
+            ) : (
+              <div></div> // Fallback if media is missing
+            )}
 
             </div>
             <div className="flex justify-between mt-2">
@@ -141,7 +149,7 @@ const Feed = () => {
                 <ul className="mt-2">
                   {post.comments.map((comment) => (
                     <li key={comment._id} className="border-b py-1">
-                      <strong>{comment.userId?.username || "Anonymous"}:</strong> {comment.CommentText}
+                      <strong>{comment.UserId?.username || "Anonymous"}:</strong> {comment.CommentText}
                       <strong> {comment.likes}</strong>
 
 

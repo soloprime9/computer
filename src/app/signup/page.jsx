@@ -35,8 +35,8 @@ const SignUp = () => {
       } )
       
      .catch( (error) => {
-      console.log("Error:", error);
-      setSuccessMessage(error.message);
+      console.log("Error:", error.response.data.message);
+      setSuccessMessage(error.response.data.message);
       
       }
       
