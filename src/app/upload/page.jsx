@@ -80,6 +80,7 @@ const UploadPost = () => {
 
       setMessage("Post uploaded successfully!");
       console.log("Successfully Uploaded Post:", response.data);
+      window.location.href = "/upload";
     } catch (error) {
       setMessage("Internal Server Error");
       console.log(error);
