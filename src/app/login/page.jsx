@@ -17,7 +17,7 @@ const Login = () => {
     onSubmit: values => {
       console.log(values);
 
-      axios.post('http://localhost:4000/user/login', values)
+      axios.post('https://backend-k.vercel.app/user/login', values)
         .then((result) => {
           console.log(result.data.message);
           alert(result.data.message);
