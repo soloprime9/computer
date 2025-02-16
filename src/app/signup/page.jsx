@@ -24,7 +24,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    await axios.post("http://localhost:4000/user/add", formData)
+    await axios.post("https://backend-k.vercel.app/user/add", formData)
 
     
      
