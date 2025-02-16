@@ -86,12 +86,17 @@ const UploadPost = () => {
       <form onSubmit={handleSubmit}>
         <div className="justify-center items-center text-center">
           
-        <div className="relative border-2 border-dashed rounded-md m-1 h-20">
-  <input type="file" id="file" onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
-  <label htmlFor="file" className="absolute inset-0 w-full h-full flex items-center justify-center text-gray-600 cursor-pointer">
+       <div className="relative border-2 border-dashed rounded-md m-1 h-20">
+  <input 
+    type="file" 
+    id="file" 
+    onChange={handleFileChange} 
+    className="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer" 
+  />
+  <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 m-0 text-white">
     Select Media
-  </label>
-</div>
+  </p>
+</div>>
         </div>
         <div className="h-100">
         {preview && (
