@@ -1,7 +1,7 @@
 'use client';
 import SearchUser from '@/Components/SearchUser'
 import React, {useEffect} from 'react'
-import jwt from jsonwebtoken;
+import jwt from 'jsonwebtoken';
 
 const page = () => {
 
