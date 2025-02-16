@@ -27,6 +27,7 @@ const UploadPost = () => {
       }
     } catch (err) {
       console.log("Invalid Token:", err);
+      localStorage.removeItem("token");
       return (window.location.href = "/login");
     }
   }, []);
