@@ -121,7 +121,7 @@ const Profile = () => {
 
   if (error) {
     return (
-      <div>
+      
       <div className="flex justify-center items-center h-screen">
         <h1 className="text-3xl font-bold">{error}</h1>
       </div>
@@ -139,6 +139,7 @@ const Profile = () => {
   const { user, posts, OwnerId } = profile;
  
   return (
+    <div>
     <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">
