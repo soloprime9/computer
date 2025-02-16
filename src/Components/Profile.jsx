@@ -40,7 +40,7 @@ const Profile = () => {
   }, []);
   
 
-  const baseURL = "http://localhost:4000/";
+  
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -121,6 +121,7 @@ const Profile = () => {
 
   if (error) {
     return (
+      <div>
       <div className="flex justify-center items-center h-screen">
         <h1 className="text-3xl font-bold">{error}</h1>
       </div>
@@ -177,7 +178,7 @@ const Profile = () => {
               {post.media.endsWith('.mp4') ? ( 
                 
                 <video
-                  src={baseURL + post.media}
+                  src={ post.media}
                   autoPlay
                   controls
                   muted
@@ -186,7 +187,7 @@ const Profile = () => {
               
               ) : (
                 <img
-                  src={baseURL + post.media}
+                  src={ post.media}
                   alt="Post"
                   className="w-full h-full object-cover border-2 rounded"
                 />
@@ -194,7 +195,7 @@ const Profile = () => {
               )} 
 
               <p className="p-4 text-lg font-bold">{post.title}</p> <br /><br /><br /><br />
-              <p className="p-4  font-bold">{("Id: ", baseURL +post.media)}</p>
+              
               
 
 
@@ -205,6 +206,7 @@ const Profile = () => {
         )}
       </div>
     </div>
+        </div>
   );
 };
 
