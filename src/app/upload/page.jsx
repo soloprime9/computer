@@ -96,7 +96,7 @@ const UploadPost = () => {
   <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 m-0 text-white">
     Select Media
   </p>
-</div>>
+</div>
         </div>
         <div className="h-100">
         {preview && (
