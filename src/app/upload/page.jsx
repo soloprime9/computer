@@ -62,7 +62,8 @@ const UploadPost = () => {
 
       const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
         headers: {
-          "x-auth-token": token,
+          // "x-auth-token": token,
+          "Authorization": `Bearer ${token}`,
         },
       });
 
