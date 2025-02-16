@@ -20,6 +20,11 @@ const UploadPost = () => {
     try {
       const decoded = jwt.decode(token);
       console.log("Decoded token data:", decoded);
+      if(decoded.exp * 1000 < Date.now()){
+        console.log("Now Going to Redirect on Login Page"):
+        localStorage.removeItem("token");
+        window.location.href="/login";
+      }
     } catch (err) {
       console.log("Invalid Token:", err);
       return (window.location.href = "/login");
