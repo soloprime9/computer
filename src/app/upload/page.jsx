@@ -21,7 +21,7 @@ const UploadPost = () => {
       const decoded = jwt.decode(token);
       console.log("Decoded token data:", decoded);
       if(decoded.exp * 1000 < Date.now()){
-        console.log("Now Going to Redirect on Login Page"):
+        console.log("Now Going to Redirect on Login Page");
         localStorage.removeItem("token");
         window.location.href="/login";
       }
@@ -67,8 +67,8 @@ const UploadPost = () => {
 
       const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
         headers: {
-          // "x-auth-token": token,
-          "Authorization": `Bearer ${token}`,
+          "x-auth-token": token,
+          
         },
       });
 
