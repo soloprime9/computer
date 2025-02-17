@@ -28,7 +28,7 @@ const Login = () => {
 
         }).catch((err) => {
 
-          alert(err.response.message);
+          alert(err.message);
           console.log(err.response.message);
           setsuccess(err.response.message);
           
