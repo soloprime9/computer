@@ -107,7 +107,7 @@ const Feed = () => {
           <div key={post._id} className="h-100 w-100 border-2 rounded-md border-blue-200 mt-4 border-2 p-2 rounded">
             <div className="flex items-center mb-2">
               <img   src={post?.UserId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
-              <h2 className="text-xl font-semibold"><a href={"/profile/" + post?.userId?.username}> {post?.userId?.username || "Unknown User"}</a></h2>
+              <h2 className="text-xl font-semibold"><Link href={"/profile/" + post?.userId?.username}> {post?.userId?.username || "Unknown User"}</Link></h2>
             </div>
             <div className="rounded-md overflow-hidden border-t-2">
               {/* Check if post.media exists and is a string before using endsWith */}
