@@ -28,9 +28,9 @@ const Login = () => {
 
         }).catch((err) => {
 
-          alert(err.message);
-          console.log(err.response.message);
-          setsuccess(err.response.message);
+          // alert(err.message);
+          console.log(err);
+          setsuccess(err);
           
         });
     }
