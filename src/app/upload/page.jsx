@@ -103,16 +103,16 @@ const UploadPost = () => {
           </div>
 
           {preview && (
-            <div className="relative flex justify-center mt-4">
+            <div className="relative flex justify-center mt-4 w-full h-48 md:h-64 ">
               {file && file.type.startsWith("image/") ? (
                 <img
-                  className="border-2 rounded-md border-white max-h-64"
+                  className="border-2 rounded-md border-white object-contain w-full h-full "
                   src={preview}
                   alt="Preview"
                 />
               ) : (
                 <video
-                  className="border-2 rounded-md border-white max-h-64"
+                  className="border-2 rounded-md border-white object-contain w-full h-full"
                   src={preview}
                   loop
                   controls
