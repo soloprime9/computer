@@ -51,29 +51,33 @@ const UploadPost = () => {
           if (window.cloudinary) {
             cloudinaryRef.current = window.cloudinary;
             widgetRef.current = cloudinaryRef.current.createUploadWidget(
-              {
-                cloudName: data.cloudName,
-                uploadPreset: data.uploadPreset,
-                sources: ["local", "camera"],
-                multiple: false,
-                 clientAllowedFormats: ["jpg", "png", "jpeg", "gif", "bmp", "webp", "mp4", "avi", "mov", "mkv", "wmv", "flv", "webm"],
-                maxFileSize: 104857600,
-                cropping: false,
-                showPoweredBy: false,
-                resourceType: "auto",
-                apiKey: data.apiKey,
-                uploadSignature: {
-                  signature: data.signature,
-                  timestamp: data.timestamp,
-                },
-              },
-              (error, result) => {
-                if (!error && result.event === "success") {
-                  setPreview(result.info.secure_url);
-                  setPublicId(result.info.public_id);
-                }
-              }
-            );
+  {
+    cloudName: data.cloudName,
+    uploadPreset: data.uploadPreset,
+    sources: ["local", "camera"],
+    multiple: false,
+    clientAllowedFormats: ["jpg", "png", "jpeg", "gif", "bmp", "webp", "mp4", "avi", "mov", "mkv", "wmv", "flv", "webm"],
+    maxFileSize: 104857600,
+    cropping: false,
+    showPoweredBy: false,
+    resourceType: "auto",
+    apiKey: data.apiKey,
+    uploadSignature: {
+      signature: data.signature,
+      timestamp: data.timestamp,
+    },
+  },
+  (error, result) => {
+    if (!error && result.event === "success") {
+      console.log(result.info); // Check the result here for success
+      setPreview(result.info.secure_url);  // Setting preview correctly
+      setPublicId(result.info.public_id);  // Make sure public_id is set properly
+    } else {
+      console.error("Cloudinary upload error:", error);
+    }
+  }
+);
+
           }
         };
 
