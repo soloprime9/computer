@@ -87,7 +87,7 @@ const UploadPost = () => {
     loadCloudinaryWidget();
   }, []);
 
-  
+  console.log("hello");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
