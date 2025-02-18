@@ -8,66 +8,85 @@ const UploadPost = () => {
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(null);
   const [publicId, setpublicId] = useState("");
+  const [loading, setLoading] = useState(false);
+   const cloudinaryRef = useRef();
+    const widgetRef = useRef();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const checkToken = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.log("Token is not available");
+        window.location.href = "/login";
+        return;
+      }
 
-    if (!token) {
-      console.log("Token is not available");
-      return (window.location.href = "/login");
-    }
-
-    try {
-      const decoded = jwt.decode(token);
-      console.log("Decoded token data:", decoded);
-      if(!decoded || !decoded.exp || decoded.exp * 1000 < Date.now()){
-        console.log("Token or Exp Missing");
+      try {
+        const decoded = jwt.decode(token);
+        console.log("Decoded token data:", decoded);
+        if (!decoded?.exp || Date.now() >= decoded.exp * 1000) {
+          console.log("Token Expired");
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+      } catch (err) {
+        console.log("Invalid Token:", err);
         localStorage.removeItem("token");
         window.location.href = "/login";
-      }  
-      
-    } catch (err) {
-      console.log("Invalid Token:", err);
-      localStorage.removeItem("token");
-      return (window.location.href = "/login");
-    }
+      }
+    };
 
     // Initializing Cloudinary Widget Setting Here
-    const cloudinaryRef = useRef();
-    const widgetRef = useRef();
+   
     
     
-    axios.get("https://backend-k.vercel.app/post/signature")
-    .then({data}){
-  cloudinaryRef.current = window.cloudinary;
-  widgetRef.current = cloudinaryRef.current.createUploadWidget(
-    {
-      cloudName : data.cloudName,
-      uploadPreset: data.uploadPreset,
-      source: ['local','camera'],
-      multiple: false,
-      clientAllowedFormats : ["image/*", "video/*"],
-      maxFileSize: 104857600,
-      cropping: false,
-      showPoweredBy : false,
-      resourceType: 'auto',
-      apiKey: data.apiKey,
-      uploadSignature: {
-        signature: data.signature,
-        timestamp: data.timestamp
-      },
-    
-    },
-    (error, result) => {
-      if(!error && result.event === "success"){
-        setPreview(result.info.secure_url);
-        setpublicId(result.info.public_id);
-      }
-    }
-    );
-  }}, []);
+ const loadCloudinaryWidget = async () => {
+      try {
+        const { data } = await axios.get("https://backend-k.vercel.app/post/signature");
 
-  
+        const script = document.createElement("script");
+        script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
+        script.async = true;
+        script.onload = () => {
+          if (window.cloudinary) {
+            cloudinaryRef.current = window.cloudinary;
+            widgetRef.current = cloudinaryRef.current.createUploadWidget(
+              {
+                cloudName: data.cloudName,
+                uploadPreset: data.uploadPreset,
+                sources: ["local", "camera"],
+                multiple: false,
+                clientAllowedFormats: ["image/*", "video/*"],
+                maxFileSize: 104857600,
+                cropping: false,
+                showPoweredBy: false,
+                resourceType: "auto",
+                apiKey: data.apiKey,
+                uploadSignature: {
+                  signature: data.signature,
+                  timestamp: data.timestamp,
+                },
+              },
+              (error, result) => {
+                if (!error && result.event === "success") {
+                  setPreview(result.info.secure_url);
+                  setPublicId(result.info.public_id);
+                }
+              }
+            );
+          }
+        };
+
+        document.body.appendChild(script);
+      } catch (error) {
+        console.error("Failed to fetch Cloudinary signature:", error);
+      }
+    };
+
+    checkToken();
+    loadCloudinaryWidget();
+  }, []);
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +96,8 @@ const UploadPost = () => {
       return;
     }
 
-   
+    setLoading(true); 
+    
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -89,7 +109,7 @@ const UploadPost = () => {
       const response = await axios.post("https://backend-k.vercel.app/post/upload", {publicId, title}, {
         headers: {
           "x-auth-token": token,
-          "ContentType" : 'application/json'
+          "Content-Type" : 'application/json'
           
         },
       });
@@ -98,9 +118,10 @@ const UploadPost = () => {
       console.log("Successfully Uploaded Post:", response.data);
       setTimeout(() => window.location.reload(),2000);
     } catch (error) {
-      setMessage(error.response.data.message || "Internal Server Error");
-      console.log(error.response.data.message || "post Creation Failed");
+      setMessage(error?.response?.data?.message || "Internal Server Error");
+      console.log(error?.response?.data?.message || "post Creation Failed");
     }
+     setLoading(false);
   };
 
   return (
@@ -108,7 +129,7 @@ const UploadPost = () => {
       <div className="lg:m-20 border-2 bg-blue-700 text-white font-bold rounded py-4 px-6">
         <h2 className="text-2xl py-2 text-center">Upload a New Post</h2>
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <button type= "button" onClick = {() => widgetRef.current.open()} className = "relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
+          <button type= "button" onClick = {() => widgetRef.current && widgetRef.current.open()} className = "relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
             <p className="text-white">Select Media</p>
             </button>
       
@@ -145,11 +166,14 @@ const UploadPost = () => {
             placeholder="Enter title"
           />
 
-          <button
+         <button
             type="submit"
-            className="w-full border-2 rounded bg-yellow-600 p-2 mt-4 text-xl font-bold hover:bg-red-700 transition"
+            className={`w-full border-2 rounded bg-yellow-600 p-2 mt-4 text-xl font-bold transition ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "hover:bg-red-700"
+            }`}
+            disabled={loading} // Disable button when loading
           >
-            Upload Post
+            {loading ? "Uploading..." : "Upload Post"}
           </button>
         </form>
 
