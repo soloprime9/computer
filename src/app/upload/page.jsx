@@ -20,16 +20,12 @@ const UploadPost = () => {
     try {
       const decoded = jwt.decode(token);
       console.log("Decoded token data:", decoded);
-      if(!decoded || !decoded.exp){
+      if(!decoded || !decoded.exp || decoded.exp * 1000 < Date.now()){
         console.log("Token or Exp Missing");
         localStorage.removeItem("token");
         window.location.href = "/login";
       }  
-      if(decoded.exp * 1000 < Date.now()){
-        console.log("Now Going to Redirect on Login Page");
-        localStorage.removeItem("token");
-        window.location.href="/login";
-      }
+      
     } catch (err) {
       console.log("Invalid Token:", err);
       localStorage.removeItem("token");
@@ -37,18 +33,29 @@ const UploadPost = () => {
     }
 
     // Initializing Cloudinary Widget Setting Here
+    const cloudinaryRef = useRef();
+    const widgetRef = useRef();
+    
+    await axios.get("https://backend-k.vercel.app/post/signature")
+    .then({data}){
   cloudinaryRef.current = window.cloudinary;
   widgetRef.current = cloudinaryRef.current.createUploadWidget(
     {
-      cloudName : process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-      uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_UPLOAD,
+      cloudName : data.cloudName,
+      uploadPreset: data.uploadPreset,
       source: ['local','camera'],
       multiple: false,
       clientAllowedFormats : ["image/*", "video/*"],
       maxFileSize: 104857600,
       cropping: false,
       showPoweredBy : false,
-      resourceType: 'auto'
+      resourceType: 'auto',
+      apiKey: data.apiKey,
+      uploadSignature: {
+        signature: data.signature,
+        timestamp: data.timestamp
+      },
+    
     },
     (error, result) => {
       if(!error && result.event === "success"){
@@ -57,10 +64,10 @@ const UploadPost = () => {
       }
     }
     );
-  }, []);
+  }}, []);
 
   
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,7 +95,7 @@ const UploadPost = () => {
 
       setMessage("Post uploaded successfully!");
       console.log("Successfully Uploaded Post:", response.data);
-      setTimeOut(() => window.location.reload(),2000);
+      setTimeout(() => window.location.reload(),2000);
     } catch (error) {
       setMessage(error.response.data.message || "Internal Server Error");
       console.log(error.response.data.message || "post Creation Failed");
@@ -133,7 +140,7 @@ const UploadPost = () => {
             className="w-full text-black p-2 text-xl mt-3 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
             id="title"
             value={title}
-            onChange={handleTitleChange}
+            onChange = {(e) => setTitle(e.target.value)}
             placeholder="Enter title"
           />
 
