@@ -56,7 +56,7 @@ const UploadPost = () => {
                 uploadPreset: data.uploadPreset,
                 sources: ["local", "camera"],
                 multiple: false,
-                clientAllowedFormats: ["/*", "/*"],
+                clientAllowedFormats: ["/", "/"],
                 maxFileSize: 104857600,
                 cropping: false,
                 showPoweredBy: false,
