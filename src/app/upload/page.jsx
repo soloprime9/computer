@@ -36,7 +36,8 @@ const UploadPost = () => {
     const cloudinaryRef = useRef();
     const widgetRef = useRef();
     
-    await axios.get("https://backend-k.vercel.app/post/signature")
+    
+    axios.get("https://backend-k.vercel.app/post/signature")
     .then({data}){
   cloudinaryRef.current = window.cloudinary;
   widgetRef.current = cloudinaryRef.current.createUploadWidget(
