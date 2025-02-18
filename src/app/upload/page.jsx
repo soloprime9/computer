@@ -100,19 +100,14 @@ const UploadPost = () => {
       <div className="lg:m-20 border-2 bg-blue-700 text-white font-bold rounded py-4 px-6">
         <h2 className="text-2xl py-2 text-center">Upload a New Post</h2>
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <div className="relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
-            <input
-              type="file"
-              id="file"
-              onChange={handleFileChange}
-              className="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer"
-            />
+          <button type= "button" onClick = {() => widgetRef.current.open()} className = "relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
             <p className="text-white">Select Media</p>
-          </div>
+            </button>
+      
 
           {preview && (
             <div className="relative flex justify-center mt-4 w-full h-48 md:h-64 ">
-              {file && file.type.startsWith("image/") ? (
+              {preview.includes('image') ? (
                 <img
                   className="border-2 rounded-md border-white object-contain w-full h-full "
                   src={preview}
@@ -126,7 +121,9 @@ const UploadPost = () => {
                   controls
                   autoPlay
                   muted
-                />
+                >
+                  <source src={preview} type ="video/mp4" />
+                  </video>
               )}
             </div>
           )}
