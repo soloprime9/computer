@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 
 const UploadPost = () => {
-  const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(null);
+  const [publicId, setpublicId] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -35,55 +35,63 @@ const UploadPost = () => {
       localStorage.removeItem("token");
       return (window.location.href = "/login");
     }
+
+    // Initializing Cloudinary Widget Setting Here
+  cloudinaryRef.current = window.cloudinary;
+  widgetRef.current = cloudinaryRef.current.createUploadWidget(
+    {
+      cloudName : process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+      uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_UPLOAD,
+      source: ['local','camera'],
+      multiple: false,
+      clientAllowedFormats : ["image/*", "video/*"],
+      maxFileSize: 104857600,
+      cropping: false,
+      showPoweredBy : false,
+      resourceType: 'auto'
+    },
+    (error, result) => {
+      if(!error && result.event === "success"){
+        setPreview(result.info.secure_url);
+        setpublicId(result.info.public_id);
+      }
+    }
+    );
   }, []);
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-
-    setFile(selectedFile);
-
-    const reader = new FileReader();
-    reader.onload = (event) => setPreview(event.target.result);
-    reader.readAsDataURL(selectedFile);
-  };
-
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!file || !title) {
-      setMessage("Please provide both file and title.");
+    if (!publicId || !title) {
+      setMessage("Please provide both publicId and title.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("title", title);
-
+   
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         console.log("User ID not found");
+        window.location.href = "/login";
         return;
       }
 
-      const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
+      const response = await axios.post("https://backend-k.vercel.app/post/upload", {publicId, title}, {
         headers: {
           "x-auth-token": token,
+          "ContentType" : 'application/json'
           
         },
       });
 
       setMessage("Post uploaded successfully!");
       console.log("Successfully Uploaded Post:", response.data);
-      window.location.href = "/upload";
+      setTimeOut(() => window.location.reload(),2000);
     } catch (error) {
-      setMessage("Internal Server Error");
-      console.log(error);
+      setMessage(error.response.data.message || "Internal Server Error");
+      console.log(error.response.data.message || "post Creation Failed");
     }
   };
 
