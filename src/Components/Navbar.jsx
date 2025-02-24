@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex-grow max-w-lg mx-4">
           <div className="relative">
             <Link href="/search-user" className="text-lg font-bold text-white hover:text-yellow-100">
-              🔍 Search
+              Search
             </Link>
           </div>
         </div>
