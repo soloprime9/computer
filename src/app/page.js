@@ -102,7 +102,7 @@ const Feed = () => {
 
   return (
    <div className=" m-2 ">
-      <div className="lg:justify-center border-2">
+      <div className="justify-center border-2">
 
       <div className="sm:w-full">
     
