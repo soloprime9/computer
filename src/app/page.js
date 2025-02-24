@@ -102,7 +102,7 @@ const Feed = () => {
 
   return (
    <div className=" m-2 flex justify-center ">
-      <div className=" border-2">
+      <div className=" ">
 
       <div className=" sm:w-full">
     
