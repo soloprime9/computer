@@ -23,8 +23,7 @@ const Navbar = () => {
             
               type="text"
               placeholder="Search libraries..."
-              className="text-3xl font-bold text-white"><Link href="/" className="text-lg font-bold text-white hover:text-yellow-100"
-            > <a href="/search-user" > Search</a></p>
+              className="className="text-3xl font-bold text-white"> <Link href="/search-user" > Search</Link></p>
             
           </div>
         </div>
