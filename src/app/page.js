@@ -101,10 +101,18 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="container mx-auto ">
+   <div className=" m-2 ">
+      <div className="lg:flex md:justify-between border-2 p-2">
+        <div className="">
+          <p>Hello World</p>
+
+        </div>
+
+      <div className="">
+    
       {posts && posts.length > 0 ? (
         posts.map((post) => (
-          <div key={post._id} className="h-100 w-100 border-2 rounded-md border-blue-200 mt-4 border-2 p-2 rounded">
+          <div key={post._id} className=" md:w-80 md:h-100  border-2 rounded-md border-blue-200 border-2 p-2 rounded mb-2">
             <div className="flex items-center mb-2">
               <img   src={post?.UserId?.profilePic || "/1.jpg"} alt="User" className="w-10 h-10 rounded-full mr-3" />
               <h2 className="text-xl font-semibold"><a href={"/profile/" + post?.userId?.username}> {post?.userId?.username || "Unknown User"}</a></h2>
@@ -113,7 +121,7 @@ const Feed = () => {
               {/* Check if post.media exists and is a string before using endsWith */}
             {post.media  ? (
               post.media.endsWith(".mp4") ? (
-                <video src={post.media || ""} className="w-full h-64 object-cover" autoPlay controls loop muted />
+                <video src={post.media || ""} className="w-full h-64 object-cover"  controls muted  />
               ) : (
                 <img src={post.media || ""} alt="Post" className=" w-full h-64 object-cover" />
               )
@@ -168,6 +176,11 @@ const Feed = () => {
       ) : (
         <p>No posts available</p>
       )}
+      </div>
+      <div>
+        <p>Loream Heumdraid Bro</p>
+      </div>
+    </div>
     </div>
   );
 };
