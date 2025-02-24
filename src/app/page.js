@@ -103,7 +103,7 @@ const Feed = () => {
   return (
    <div className=" m-2 ">
       <div className="lg:flex md:justify-between border-2 p-2">
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <p>Hello World</p>
 
         </div>
@@ -177,7 +177,7 @@ const Feed = () => {
         <p>No posts available</p>
       )}
       </div>
-      <div className="hidden">
+      <div className="sm:hidden">
         <p>Loream Heumdraid Bro</p>
       </div>
     </div>
