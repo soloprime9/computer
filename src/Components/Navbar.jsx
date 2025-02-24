@@ -19,12 +19,12 @@ const Navbar = () => {
         {/* Center Section: Search Bar */}
         <div className="flex-grow max-w-lg mx-4">
           <div className="relative">
-            <button
+            <p
             
               type="text"
               placeholder="Search libraries..."
               className="w-30 py-2 pl-10 pr-4 bg-gray-800 text-white rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            > <a href="/search-user" className="text-lg font-bold text-white hover:text-yellow-100"> Search</a></button>
+            > <a href="/search-user" className="text-lg font-bold text-white hover:text-yellow-100"> Search</a></p>
             
           </div>
         </div>
