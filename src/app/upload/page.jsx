@@ -37,26 +37,38 @@ const UploadPost = () => {
     }
   }, []);
 
+  
+  // 🔹 Handle File Upload
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
+    // ✅ Ensure Only Image or Video is Allowed
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "video/mp4", "video/webm"];
+    if (!allowedTypes.includes(selectedFile.type)) {
+      setMessage("Invalid file type. Only images (PNG, JPG) and videos (MP4, WEBM) are allowed.");
+      return;
+    }
+
     setFile(selectedFile);
 
+    // 🔹 Generate Preview
     const reader = new FileReader();
     reader.onload = (event) => setPreview(event.target.result);
     reader.readAsDataURL(selectedFile);
   };
 
+  // 🔹 Handle Title Change
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
+  // 🔹 Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!file || !title) {
-      setMessage("Please provide both file and title.");
+      setMessage("Please provide both a file and a title.");
       return;
     }
 
@@ -67,14 +79,14 @@ const UploadPost = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        console.log("User ID not found");
+        console.log("User is not authenticated.");
         return;
       }
 
       const response = await axios.post("https://backend-k.vercel.app/post/upload", formData, {
         headers: {
           "x-auth-token": token,
-
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -82,7 +94,7 @@ const UploadPost = () => {
       console.log("Successfully Uploaded Post:", response.data);
       window.location.href = "/upload";
     } catch (error) {
-      setMessage("Internal Server Error");
+      setMessage("Internal Server Error. Please try again.");
       console.log(error);
     }
   };
@@ -92,6 +104,8 @@ const UploadPost = () => {
       <div className="lg:m-20 border-2 bg-blue-700 text-white font-bold rounded py-4 px-6">
         <h2 className="text-2xl py-2 text-center">Upload a New Post</h2>
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          
+          {/* 🔹 File Upload Box */}
           <div className="relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
             <input
               type="file"
@@ -102,30 +116,18 @@ const UploadPost = () => {
             <p className="text-white">Select Media</p>
           </div>
 
+          {/* 🔹 File Preview */}
           {preview && (
-            <div className="relative flex justify-center mt-4">
-            <div className="relative flex justify-center mt-4 w-full h-48 md:h-64 ">
+            <div className="relative flex justify-center mt-4 w-full h-48 md:h-64">
               {file && file.type.startsWith("image/") ? (
-                <img
-                  className="border-2 rounded-md border-white max-h-64"
-                  className="border-2 rounded-md border-white object-contain w-full h-full "
-                  src={preview}
-                  alt="Preview"
-                />
+                <img className="border-2 rounded-md border-white object-contain w-full h-full" src={preview} alt="Preview" />
               ) : (
-                <video
-                  className="border-2 rounded-md border-white max-h-64"
-                  className="border-2 rounded-md border-white object-contain w-full h-full"
-                  src={preview}
-                  loop
-                  controls
-                  autoPlay
-                  muted
-                />
+                <video className="border-2 rounded-md border-white object-contain w-full h-full" src={preview} loop controls autoPlay muted />
               )}
             </div>
           )}
 
+          {/* 🔹 Title Input */}
           <input
             type="text"
             className="w-full text-black p-2 text-xl mt-3 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
@@ -135,6 +137,7 @@ const UploadPost = () => {
             placeholder="Enter title"
           />
 
+          {/* 🔹 Upload Button */}
           <button
             type="submit"
             className="w-full border-2 rounded bg-yellow-600 p-2 mt-4 text-xl font-bold hover:bg-red-700 transition"
@@ -143,6 +146,7 @@ const UploadPost = () => {
           </button>
         </form>
 
+        {/* 🔹 Display Error/Success Message */}
         {message && <p className="text-lg text-center text-red-400 mt-4">{message}</p>}
       </div>
     </div>
@@ -150,4 +154,3 @@ const UploadPost = () => {
 };
 
 export default UploadPost;
-
