@@ -101,10 +101,10 @@ const Feed = () => {
   }, []);
 
   return (
-   <div className=" m-2 justify-center ">
-      <div className="justify-center justify-evenly border-2">
+   <div className=" m-2 flex justify-center ">
+      <div className=" border-2">
 
-      <div className="justify-center items-center text-center sm:w-full">
+      <div className=" sm:w-full">
     
       {posts && posts.length > 0 ? (
         posts.map((post) => (
