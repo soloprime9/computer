@@ -102,9 +102,9 @@ const Feed = () => {
 
   return (
    <div className=" m-2 ">
-      <div className="lg:flex lg:justify-center border-2">
+      <div className="lg:justify-center border-2">
 
-      <div className="lg:w-1/2 md:w-1/2 sm:w-full">
+      <div className="sm:w-full">
     
       {posts && posts.length > 0 ? (
         posts.map((post) => (
