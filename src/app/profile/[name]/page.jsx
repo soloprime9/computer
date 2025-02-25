@@ -7,7 +7,7 @@ import React from 'react';
 
 const Single = () => {
   return (
-    <div className='m-20'>
+    <div className='md:m-1'>
         <Profile />
         
     </div>
