@@ -119,10 +119,27 @@ const Profile = () => {
     }
   };
 
-  if (error) {
+ if (error) {
     return (
       
-      <div>
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-3xl font-bold">{error}</h1>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-3xl font-bold">Loading...</h1>
+      </div>
+    );
+  }
+
+  const { user, posts, OwnerId } = profile;
+ 
+  return (
+    <div>
     <div className=" mx-auto md:p-2 mt-2">
       <div className="md:flex grid justify-center  mb-4 sm:p-8">
         <div className="md:flex grid items-center md:mr-6 md:mt-2">
@@ -177,6 +194,7 @@ const Profile = () => {
                 />
 
               )} 
+
 
             </div>
           ))
