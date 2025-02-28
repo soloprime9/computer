@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://computer-xrfg.vercel.app/sitemap.xml
