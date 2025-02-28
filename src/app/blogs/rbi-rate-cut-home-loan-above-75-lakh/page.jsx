@@ -19,7 +19,7 @@ const HomeLoanRates = () => {
           content="RBI rate cut, home loan interest rates, home loans above Rs 75 lakh, SBI home loan, HDFC home loan, ICICI home loan, Axis bank home loan, home loan comparison, CIBIL score, real estate investment"
         />
       </Head>
-
+   
       <main className="container mx-auto px-4 py-8">
         <article className="prose prose-lg">
           <h1 className="text-3xl font-bold mb-6">
