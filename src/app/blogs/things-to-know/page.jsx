@@ -28,7 +28,7 @@ const LakersWolvesPreview = () => {
           </h1>
 
           <p>
-            <Image src="28.jfif" alt="Lakers vs. Timberwolves game" width={600} height={400} />
+            <Image src="/28.jfif" alt="Lakers vs. Timberwolves game" width={600} height={400} />
           </p>
 
           <p>
