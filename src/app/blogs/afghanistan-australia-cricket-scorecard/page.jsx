@@ -12,7 +12,7 @@ const AFGvsAUSScorecard = () => {
         <title>AFG vs AUS: Match Scorecard, Highlights & Analysis | [Your Website Name]</title>
         <meta
           name="description"
-          content="Detailed scorecard, highlights, and in-depth analysis of the Afghanistan vs Australia cricket match. Stay updated with the latest updates and standings."
+          content="Detailed scorecard, highlights, and in-depth analysis of the Afghanistan vs Australia cricket match.afghanistan vs australia, aus vs afg, afg vs aus, australia vs afghanistan, afghanistan national cricket team vs australian men’s cricket team match scorecard, icc champions trophy, icc champions trophy 2025, champions trophy 2025, champions trophy, spencer johnson, aus vs afg today match, aus vs afghanistan, aus v afg, azmatullah omarzai, australia v afghanistan, where to watch afghanistan national cricket team vs australian men’s cricket team, afghanistan national cricket team vs australian men’s cricket team timeline, cricket, cricket australia, rashid khan, rahmanullah gurbaz, icc, hashmatullah shahidi, australia vs afghanistan champions trophy, gaddafi stadium weather, aus vs afg champions trophy, mohammad nabi, afghanistan cricket, rahmat shah, afghanistan, glenn maxwell, Stay updated with the latest updates and standings."
         />
         <meta
           name="keywords"
