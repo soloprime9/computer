@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 // Replace with your actual thumbnail image path
-import thumbnail from '/public/afg-aus-cricket.jpg';
+import thumbnail from '/public/afg-aus-cricket.jpeg';
 
 const AFGvsAUSScorecard = () => {
   return (
