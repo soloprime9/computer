@@ -2,6 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
+// Replace with your actual thumbnail image path
+import thumbnail from '/public/28.webp';
+
 const LakersWolvesPreview = () => {
   return (
     <>
@@ -28,7 +31,8 @@ const LakersWolvesPreview = () => {
           </h1>
 
           <p>
-            <Image src="/public/28.webp" alt="Lakers vs. Timberwolves game" width={600} height={400} />
+            <Image
+              src={thumbnail} alt="Lakers vs. Timberwolves game" width={600} height={400} />
           </p>
 
           <p>
