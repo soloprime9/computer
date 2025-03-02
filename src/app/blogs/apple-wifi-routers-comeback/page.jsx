@@ -65,14 +65,14 @@ const AirPortReturnBlog = () => {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">The Potential Benefits</h2>
-            <ul className="list-disc list-inside">
-              <li><strong>Seamless Apple Ecosystem Integration:** Apple devices could seamlessly connect to the network, offering a truly streamlined user experience.</li>
-              <li><strong>Enhanced Performance:** Apple's custom chip could deliver superior Wi-Fi performance, leveraging the latest technologies like Wi-Fi 6E and potentially even Wi-Fi 7.</li>
-              <li><strong>Improved HomeKit Integration:** This approach could significantly enhance the functionality of Apple's smart home ecosystem.</li>
-              <li><strong>Reduced Clutter:** Eliminating the need for a separate router could declutter homes and simplify setups.</li>
-            </ul>
-          </section>
+  <h2 className="text-2xl font-semibold mb-4">The Potential Benefits</h2>
+  <ul className="list-disc list-inside">
+    <li><strong>Seamless Apple Ecosystem Integration:</strong> Apple devices could seamlessly connect to the network, offering a truly streamlined user experience.</li>
+    <li><strong>Enhanced Performance:</strong> Apple's custom chip could deliver superior Wi-Fi performance, leveraging the latest technologies like Wi-Fi 6E and potentially even Wi-Fi 7.</li>
+    <li><strong>Improved HomeKit Integration:</strong> This approach could significantly enhance the functionality of Apple's smart home ecosystem.</li>
+    <li><strong>Reduced Clutter:</strong> Eliminating the need for a separate router could declutter homes and simplify setups.</li>
+  </ul>
+</section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">The Future of Apple Networking</h2>
