@@ -103,6 +103,7 @@ const TankDavisRoachFight = () => {
 
           <p>
             The rise of social media and streaming platforms has also played a significant role in the resurgence of boxing's popularity. The "where can i watch the fight tonight" and "boxing tonight: what time" searches indicate a shift towards digital consumption of sports content. Davis's fights are often broadcast on multiple platforms, making them accessible to a wider audience.
+           </p>
           <h2 className="text-2xl font-semibold mb-4">The Emotional Rollercoaster: The Thrill of Boxing</h2>
 
           <p>
