@@ -8,8 +8,8 @@ const SiriUpgradeDelayBlog = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className=" ">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+        <div className=""></div>
+        <div className="">
           <div className="max-w-3xl mx-auto">
             <div>
               <h1 className="text-4xl font-semibold text-center mb-8">Apple Intelligence Upgrades for Siri Likely Pushed Back to iOS 18.5</h1>
