@@ -8,6 +8,7 @@ const UploadPost = () => {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0); // 🔥 NEW STATE
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,15 +21,15 @@ const UploadPost = () => {
     try {
       const decoded = jwt.decode(token);
       console.log("Decoded token data:", decoded);
-      if(!decoded || !decoded.exp){
-         console.log("Token or Exp Missing");
-         localStorage.removeItem("token");
-         window.location.href = "/login";
-      }  
-      if(decoded.exp * 1000 < Date.now()){
+      if (!decoded || !decoded.exp) {
+        console.log("Token or Exp Missing");
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
+      if (decoded.exp * 1000 < Date.now()) {
         console.log("Now Going to Redirect on Login Page");
-         localStorage.removeItem("token");
-         window.location.href="/login";
+        localStorage.removeItem("token");
+        window.location.href = "/login";
       }
     } catch (err) {
       console.log("Invalid Token:", err);
@@ -37,13 +38,10 @@ const UploadPost = () => {
     }
   }, []);
 
-  
-  // 🔹 Handle File Upload
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
-    // ✅ Ensure Only Image or Video is Allowed
     const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "video/mp4", "video/webm"];
     if (!allowedTypes.includes(selectedFile.type)) {
       setMessage("Invalid file type. Only images (PNG, JPG) and videos (MP4, WEBM) are allowed.");
@@ -52,18 +50,15 @@ const UploadPost = () => {
 
     setFile(selectedFile);
 
-    // 🔹 Generate Preview
     const reader = new FileReader();
     reader.onload = (event) => setPreview(event.target.result);
     reader.readAsDataURL(selectedFile);
   };
 
-  // 🔹 Handle Title Change
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  // 🔹 Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,14 +83,20 @@ const UploadPost = () => {
           "x-auth-token": token,
           "Content-Type": "multipart/form-data",
         },
+        onUploadProgress: (progressEvent) => {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percent); // 🔥 Update Upload Progress
+        },
       });
 
       setMessage("Post uploaded successfully!");
       console.log("Successfully Uploaded Post:", response.data);
+      setUploadProgress(0); // Reset progress bar
       window.location.href = "/upload";
     } catch (error) {
       setMessage("Internal Server Error. Please try again.");
       console.log(error);
+      setUploadProgress(0); // Reset on error
     }
   };
 
@@ -104,7 +105,7 @@ const UploadPost = () => {
       <div className="lg:m-20 border-2 bg-blue-700 text-white font-bold rounded py-4 px-6">
         <h2 className="text-2xl py-2 text-center">Upload a New Post</h2>
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          
+
           {/* 🔹 File Upload Box */}
           <div className="relative border-2 border-dashed rounded-md m-2 h-20 w-full flex items-center justify-center cursor-pointer">
             <input
@@ -136,6 +137,19 @@ const UploadPost = () => {
             onChange={handleTitleChange}
             placeholder="Enter title"
           />
+
+          {/* 🔹 Upload Progress Bar */}
+          {uploadProgress > 0 && (
+            <div className="w-full mt-4">
+              <div className="h-4 bg-gray-300 rounded">
+                <div
+                  className="h-4 bg-green-500 rounded"
+                  style={{ width: `${uploadProgress}%` }}
+                ></div>
+              </div>
+              <p className="text-center text-white mt-2">{uploadProgress}% uploaded</p>
+            </div>
+          )}
 
           {/* 🔹 Upload Button */}
           <button
