@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 import { FaShareSquare } from "react-icons/fa";
 import { WiTime9 } from "react-icons/wi";
 
-const API_URL = "http://localhost:4000/posts"; // change to prod URL
+const API_URL = "https://apple-news-mu.vercel.app/posts"; // change to prod URL
 
 export default function FondPeaceNews() {
   const [posts, setPosts] = useState([]);
