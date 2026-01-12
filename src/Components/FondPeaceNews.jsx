@@ -6,7 +6,7 @@ import { WiTime9 } from "react-icons/wi";
 
 const API_URL = "http://localhost:4000/posts"; // change to prod URL
 
-export default function FondPeaceFeed() {
+export default function FondPeaceNews() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
