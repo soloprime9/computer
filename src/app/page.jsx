@@ -8,13 +8,12 @@ import FondPeaceNews from '@/Components/FondPeaceNews'
 
 
 
-const Feed = () => {
-
+export default function Page() {
   return (
-    <div>
+    <main>
       <FondPeaceNews />
-    </div>
-  )
+    </main>
+  );
 }
 
 
