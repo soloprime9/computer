@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+
 import jwt, { decode } from 'jsonwebtoken';
 import { Link } from "react-router-dom";
 import Image from "next/image";
