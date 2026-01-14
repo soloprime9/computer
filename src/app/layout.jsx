@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/Components/Footer";
-import Navbar from "@/Components/Navbar";
+
 
 export const metadata = {
   manifest: "/site.webmanifest",
@@ -31,9 +30,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
+    
         {children}
-        <Footer />
+    
       </body>
     </html>
   );
