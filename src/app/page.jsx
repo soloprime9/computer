@@ -1,7 +1,6 @@
 import FondPeaceNews from "@/Components/FondPeaceNews";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "FondPeace News – Real-Time Apple News, iPhone, Mac & iOS Updates",
   description:
     "FondPeace News is an independent Apple technology news aggregator curating real-time updates on iPhone, Mac, and iOS from trusted publishers.",
@@ -86,11 +85,9 @@ export default function Page() {
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "Editorial",
-          "email": "hello@fondpeace.com"
+          "email": "contact@fondpeace.com"
         },
-        "sameAs": [
-          "https://twitter.com/FondPeaceTech"
-        ]
+        "sameAs": ["https://twitter.com/fondpeace"]
       }
     ]
   };
@@ -105,7 +102,6 @@ export default function Page() {
     </main>
   );
 }
-
 
 
 
