@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { notFound, redirect } from "next/navigation";
 
 import { WiTime9 } from "react-icons/wi";
@@ -42,7 +42,7 @@ export default async function PostPage({ params }) {
       {/* Navigation Header */}
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl md:text-2xl font-black tracking-tight text-blue-600">FondPeace News</Link>
+          <a href="/" className="text-xl md:text-2xl font-black tracking-tight text-blue-600">FondPeace News</a>
           <div className="text-xs font-bold text-gray-400 uppercase tracking-widest hidden sm:block">
             Article Detail
           </div>
