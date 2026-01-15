@@ -46,7 +46,7 @@ export default function FondPeaceNews() {
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <h1 className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
-          <Link href="/">FondPeace News</Link>
+          <Link href="/">FondPeace News</Link> </h1>
           <nav className="hidden sm:flex gap-6 text-sm font-semibold text-gray-600">
             <span className="hover:text-blue-600 cursor-pointer transition">Apple</span>
             <span className="hover:text-blue-600 cursor-pointer transition">Trending</span>
