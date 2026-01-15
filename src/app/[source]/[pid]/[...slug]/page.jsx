@@ -7,7 +7,7 @@ import React from 'react';
 
 const Single = () => {
   return (
-    <div className='md:m-1'>
+    <div>
         <PostDetail />
         
     </div>
