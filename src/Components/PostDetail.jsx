@@ -7,17 +7,21 @@ import { RiArticleLine } from "react-icons/ri";
 
 const API_URL = "https://applenews.onrender.com";
 
-export default function PostDetail({ params }) {
-  const { source, pid, slug } = params;
+export default function PostDetail(props) {
+  // ✅ SAFE extraction
+  const params = props?.params || {};
+  const source = params.source;
+  const pid = params.pid;
+  const slug = params.slug;
 
-  // slug from [...slug] is an ARRAY
+  // slug may be undefined or array
   const slugString = Array.isArray(slug) ? slug.join("/") : "";
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!pid) return;
+    if (!pid || !source) return;
 
     const fetchPost = async () => {
       try {
@@ -31,7 +35,7 @@ export default function PostDetail({ params }) {
         const data = await res.json();
         setPost(data);
       } catch (err) {
-        console.error(err);
+        console.error("Fetch error:", err);
         setPost(null);
       } finally {
         setLoading(false);
@@ -41,6 +45,7 @@ export default function PostDetail({ params }) {
     fetchPost();
   }, [source, pid, slugString]);
 
+  // ⏳ Loading
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -49,6 +54,7 @@ export default function PostDetail({ params }) {
     );
   }
 
+  // ❌ Not found
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
