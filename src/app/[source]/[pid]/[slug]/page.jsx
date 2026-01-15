@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 
-const API_URL = "http://localhost:4000/posts";
+const API_URL = "https://applenews.onrender.com/posts";
 
 export default async function PostPage({ params }) {
   const { source, pid, slug } = params;
