@@ -1,5 +1,15 @@
-import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+
+import { WiTime9 } from "react-icons/wi";
+import { RiArticleLine } from "react-icons/ri";
+import { FaShareSquare, FaFacebookF } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import { SiPocket } from "react-icons/si";
+
+
+
 const API_URL = "https://applenews.onrender.com/posts";
 
 export default async function PostPage({ params }) {
