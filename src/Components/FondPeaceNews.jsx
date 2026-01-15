@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import { FaShareSquare } from "react-icons/fa";
 import { WiTime9 } from "react-icons/wi";
+import Link from "next/link";
 
 const API_URL = "https://applenews.onrender.com/posts"; // change to prod URL
 
@@ -44,7 +45,8 @@ export default function FondPeaceNews() {
       {/* Header - Fixed Height & Centered Content */}
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <h1 className="text-xl md:text-2xl font-black tracking-tight text-blue-600">FondPeace News</h1>
+          <h1 className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
+          <Link> FondPeace News</Link> </h1>
           <nav className="hidden sm:flex gap-6 text-sm font-semibold text-gray-600">
             <span className="hover:text-blue-600 cursor-pointer transition">Apple</span>
             <span className="hover:text-blue-600 cursor-pointer transition">Trending</span>
@@ -73,25 +75,24 @@ export default function FondPeaceNews() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <h2 className="mb-2">
-                    <a
+                    <Link
                       href={post.originalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-lg md:text-xl font-bold leading-tight text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-2"
                     >
                       {post.title}
-                    </a>
+                    </Link>
                   </h2>
                   
                   <p className="text-sm text-gray-600 line-clamp-2 mb-3 leading-relaxed">
-                    <a
+                    <Link
                       href={post.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg md:text-xl font-bold leading-tight text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-2"
                     >
                     {truncateWords(post.excerpt, 22)}
-                    </a>
+                    </Link>
                   </p>
                 </div>
 
