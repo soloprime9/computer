@@ -1,41 +1,37 @@
-import { notFound } from "next/navigation";
-const API_URL = "https://applenews.onrender.com";
-export default async function Page({ params }) {
-  // slug array → string
-  const slug = params?.slug?.join("/");
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-  if (!slug) notFound();
+const PostDetail = () => {
+  const { source, pid, slug } = useParams(); // Hooks from react-router-dom
+  const [post, setPost] = useState(null);
 
-  // API call using FULL slug string
-  const res = await fetch(
-    `${API_URL}/post-by-slug/${slug}`,
-    { cache: "no-store" }
-  );
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        // Calls: http://localhost:4000/posts/9to5mac/512581/ios-263...
+        const response = await fetch(`https://applenews.onrender.com/posts/${source}/${pid}/${slug}`);
+        const data = await response.json();
+        setPost(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
 
-  if (!res.ok) notFound();
+    fetchPost();
+  }, [source, pid, slug]);
 
-  const post = await res.json(); // 👈 THIS IS WHAT YOU WANT
-  console.log("Post: ", post);
+  if (!post) return <div>Loading...</div>;
+
   return (
     <div>
       <h1>{post.title}</h1>
-
-      <img
-        src={post.image}
-        alt={post.title}
-        style={{ maxWidth: "100%" }}
-      />
-
-      <p>{post.excerpt}</p>
-
-      <p>
-        Source: {post.source?.name}
-      </p>
+      <p>Source: {post.source.name}</p>
+      {/* Render other post data */}
     </div>
   );
-}
+};
 
-
+export default PostDetail;
 
 
 
