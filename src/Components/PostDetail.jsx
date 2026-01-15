@@ -1,109 +1,227 @@
 "use client";
-import { useEffect, useState, use } from "react"; // Added 'use' to unwrap params
-import Link from 'next/link'; // Use Next.js Link
-import { FaShareSquare, FaFacebookF, FaXTwitter } from "react-icons/fa6";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { WiTime9 } from "react-icons/wi";
 import { RiArticleLine } from "react-icons/ri";
-import { MdEmail } from "react-icons/md";
-import { SiPocket } from "react-icons/si";
 
 const API_URL = "https://applenews.onrender.com";
 
-// In Next.js App Router, params are passed as a prop to the page
-const PostDetail = ({ params: paramsPromise }) => {
-  // Unwrap the params promise (required in newer Next.js versions)
-  const params = use(paramsPromise);
+export default function PostDetail({ params }) {
   const { source, pid, slug } = params;
-  
-  // Join the slug array back into a string if it's [...slug]
-  const slugString = Array.isArray(slug) ? slug.join('/') : slug;
+
+  // slug from [...slug] is an ARRAY
+  const slugString = Array.isArray(slug) ? slug.join("/") : "";
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!pid) return;
+
     const fetchPost = async () => {
-      setLoading(true);
       try {
-        const response = await fetch(`${API_URL}/posts/${source}/${pid}/${slugString}`);
-        const data = await response.json();
-        
-        if (response.ok) {
-          setPost(data);
-        } else {
-          console.error("Post not found");
-        }
-      } catch (error) {
-        console.error("Error fetching post:", error);
+        const res = await fetch(
+          `${API_URL}/posts/${source}/${pid}/${slugString}`,
+          { cache: "no-store" }
+        );
+
+        if (!res.ok) throw new Error("Post not found");
+
+        const data = await res.json();
+        setPost(data);
+      } catch (err) {
+        console.error(err);
+        setPost(null);
       } finally {
         setLoading(false);
       }
     };
 
-    if (pid) fetchPost();
+    fetchPost();
   }, [source, pid, slugString]);
 
-  // ... (Keep your Loading and Not Found UI the same) ...
-  if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  if (!post) return <div className="flex items-center justify-center min-h-screen">Post not found</div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading…
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Post not found
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-slate-900">
-      <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b sticky top-0">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center">
+          <Link href="/" className="font-black text-blue-600 text-xl">
             FondPeace News
           </Link>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-8 md:py-12">
-        <article className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm">
-          <div className="p-6 md:p-12">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="bg-blue-600 text-white text-[10px] font-black uppercase px-2 py-1 rounded">
-                {post.source?.name}
-              </span>
-            </div>
+      <main className="max-w-4xl mx-auto px-4 py-10">
+        <article className="bg-white rounded-3xl p-6 md:p-10 shadow">
+          <span className="text-xs font-bold uppercase bg-blue-600 text-white px-2 py-1 rounded">
+            {post.source?.name}
+          </span>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-8 leading-[1.1]">
-              {post.title}
-            </h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold mt-4 mb-6">
+            {post.title}
+          </h1>
 
-            {/* Meta Info */}
-            <div className="flex items-center gap-4 mb-10 pb-10 border-b border-gray-100">
-              {post.source?.logo && (
-                <img src={post.source.logo} alt="" className="w-12 h-12 rounded-xl object-contain border bg-gray-50 p-1" />
-              )}
-              <div className="flex flex-col">
-                <span className="font-bold text-gray-900 text-lg">{post.author || post.source?.name}</span>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <WiTime9 className="text-xl" />
-                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                </div>
-              </div>
-            </div>
-
-            <img src={post.image} alt={post.title} className="w-full aspect-video object-cover rounded-2xl mb-10" />
-
-            <div className="text-xl md:text-2xl font-medium text-gray-900 mb-6 border-l-4 border-blue-600 pl-6 py-2">
-                {post.excerpt}
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href={post.originalUrl} target="_blank" className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-blue-600 text-white rounded-2xl font-bold">
-                <RiArticleLine /> Read Full Article
-              </a>
-            </div>
+          <div className="flex items-center gap-2 text-gray-500 mb-6">
+            <WiTime9 />
+            <span>
+              {new Date(post.publishedAt).toLocaleDateString()}
+            </span>
           </div>
+
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full rounded-2xl mb-8"
+          />
+
+          <p className="text-xl border-l-4 border-blue-600 pl-4 mb-8">
+            {post.excerpt}
+          </p>
+
+          <a
+            href={post.originalUrl}
+            target="_blank"
+            className="inline-flex items-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-bold"
+          >
+            <RiArticleLine /> Read Original
+          </a>
         </article>
       </main>
     </div>
   );
-};
+}
 
-export default PostDetail;
+
+
+
+
+
+
+
+
+
+// "use client";
+// import { useEffect, useState, use } from "react"; // Added 'use' to unwrap params
+// import Link from 'next/link'; // Use Next.js Link
+// import { FaShareSquare, FaFacebookF, FaXTwitter } from "react-icons/fa6";
+// import { WiTime9 } from "react-icons/wi";
+// import { RiArticleLine } from "react-icons/ri";
+// import { MdEmail } from "react-icons/md";
+// import { SiPocket } from "react-icons/si";
+
+// const API_URL = "https://applenews.onrender.com";
+
+// // In Next.js App Router, params are passed as a prop to the page
+// const PostDetail = ({ params: paramsPromise }) => {
+//   // Unwrap the params promise (required in newer Next.js versions)
+//   const params = use(paramsPromise);
+//   const { source, pid, slug } = params;
+  
+//   // Join the slug array back into a string if it's [...slug]
+//   const slugString = Array.isArray(slug) ? slug.join('/') : slug;
+
+//   const [post, setPost] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const fetchPost = async () => {
+//       setLoading(true);
+//       try {
+//         const response = await fetch(`${API_URL}/posts/${source}/${pid}/${slugString}`);
+//         const data = await response.json();
+        
+//         if (response.ok) {
+//           setPost(data);
+//         } else {
+//           console.error("Post not found");
+//         }
+//       } catch (error) {
+//         console.error("Error fetching post:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     if (pid) fetchPost();
+//   }, [source, pid, slugString]);
+
+//   // ... (Keep your Loading and Not Found UI the same) ...
+//   if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+//   if (!post) return <div className="flex items-center justify-center min-h-screen">Post not found</div>;
+
+//   return (
+//     <div className="min-h-screen bg-gray-50 text-slate-900">
+//       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
+//         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+//           <Link href="/" className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
+//             FondPeace News
+//           </Link>
+//         </div>
+//       </header>
+
+//       <main className="max-w-4xl mx-auto px-4 py-8 md:py-12">
+//         <article className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm">
+//           <div className="p-6 md:p-12">
+//             <div className="flex items-center gap-2 mb-6">
+//               <span className="bg-blue-600 text-white text-[10px] font-black uppercase px-2 py-1 rounded">
+//                 {post.source?.name}
+//               </span>
+//             </div>
+
+//             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-8 leading-[1.1]">
+//               {post.title}
+//             </h1>
+
+//             {/* Meta Info */}
+//             <div className="flex items-center gap-4 mb-10 pb-10 border-b border-gray-100">
+//               {post.source?.logo && (
+//                 <img src={post.source.logo} alt="" className="w-12 h-12 rounded-xl object-contain border bg-gray-50 p-1" />
+//               )}
+//               <div className="flex flex-col">
+//                 <span className="font-bold text-gray-900 text-lg">{post.author || post.source?.name}</span>
+//                 <div className="flex items-center gap-2 text-sm text-gray-500">
+//                   <WiTime9 className="text-xl" />
+//                   <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <img src={post.image} alt={post.title} className="w-full aspect-video object-cover rounded-2xl mb-10" />
+
+//             <div className="text-xl md:text-2xl font-medium text-gray-900 mb-6 border-l-4 border-blue-600 pl-6 py-2">
+//                 {post.excerpt}
+//             </div>
+
+//             {/* Buttons */}
+//             <div className="flex flex-col sm:flex-row gap-4">
+//               <a href={post.originalUrl} target="_blank" className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-blue-600 text-white rounded-2xl font-bold">
+//                 <RiArticleLine /> Read Full Article
+//               </a>
+//             </div>
+//           </div>
+//         </article>
+//       </main>
+//     </div>
+//   );
+// };
+
+// export default PostDetail;
 
 
 
