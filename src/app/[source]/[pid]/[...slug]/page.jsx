@@ -7,11 +7,11 @@ import React from 'react';
 
 const Single = () => {
   return (
-    <div>
-        <PostDetail />
-        
-    </div>
-  )
+    <main className="min-h-screen bg-white">
+      
+      <PostDetail />
+    </main>
+  );
 }
 
 export default Single;
