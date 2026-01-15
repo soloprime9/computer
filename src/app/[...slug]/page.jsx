@@ -7,6 +7,7 @@ export default async function Page({ params }) {
   if (!params?.slug) notFound();
 
   const slug = params.slug.join("/");
+  console.log("slug: ", slug);
 
   const res = await fetch(
     `${API_URL}/post-by-slug/${slug}`,
@@ -16,6 +17,7 @@ export default async function Page({ params }) {
   if (!res.ok) notFound();
 
   const post = await res.json();
+  console.log("Post: ", post);
 
   return (
     <main className="min-h-screen bg-white">
