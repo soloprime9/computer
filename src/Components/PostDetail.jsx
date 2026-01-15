@@ -1,117 +1,165 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { WiTime9 } from "react-icons/wi";
-import { RiArticleLine } from "react-icons/ri";
-
+import { notFound } from "next/navigation";
 const API_URL = "https://applenews.onrender.com";
+export default async function Page({ params }) {
+  // slug array → string
+  const slug = params?.slug?.join("/");
 
-export default function PostDetail(props) {
-  // ✅ SAFE extraction
-  const params = props?.params || {};
-  const source = params.source;
-  const pid = params.pid;
-  const slug = params.slug;
+  if (!slug) notFound();
 
-  // slug may be undefined or array
-  const slugString = Array.isArray(slug) ? slug.join("/") : "";
+  // API call using FULL slug string
+  const res = await fetch(
+    `${API_URL}/post-by-slug/${slug}`,
+    { cache: "no-store" }
+  );
 
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  if (!res.ok) notFound();
 
-  useEffect(() => {
-    if (!pid || !source) return;
-
-    const fetchPost = async () => {
-      try {
-        const res = await fetch(
-          `${API_URL}/posts/${source}/${pid}/${slugString}`,
-          { cache: "no-store" }
-        );
-
-        if (!res.ok) throw new Error("Post not found");
-
-        const data = await res.json();
-        setPost(data);
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setPost(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPost();
-  }, [source, pid, slugString]);
-
-  // ⏳ Loading
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading…
-      </div>
-    );
-  }
-
-  // ❌ Not found
-  if (!post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Post not found
-      </div>
-    );
-  }
+  const post = await res.json(); // 👈 THIS IS WHAT YOU WANT
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b sticky top-0">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center">
-          <Link href="/" className="font-black text-blue-600 text-xl">
-            FondPeace News
-          </Link>
-        </div>
-      </header>
+    <div>
+      <h1>{post.title}</h1>
 
-      <main className="max-w-4xl mx-auto px-4 py-10">
-        <article className="bg-white rounded-3xl p-6 md:p-10 shadow">
-          <span className="text-xs font-bold uppercase bg-blue-600 text-white px-2 py-1 rounded">
-            {post.source?.name}
-          </span>
+      <img
+        src={post.image}
+        alt={post.title}
+        style={{ maxWidth: "100%" }}
+      />
 
-          <h1 className="text-3xl md:text-5xl font-extrabold mt-4 mb-6">
-            {post.title}
-          </h1>
+      <p>{post.excerpt}</p>
 
-          <div className="flex items-center gap-2 text-gray-500 mb-6">
-            <WiTime9 />
-            <span>
-              {new Date(post.publishedAt).toLocaleDateString()}
-            </span>
-          </div>
-
-          <img
-            src={post.image}
-            alt={post.title}
-            className="w-full rounded-2xl mb-8"
-          />
-
-          <p className="text-xl border-l-4 border-blue-600 pl-4 mb-8">
-            {post.excerpt}
-          </p>
-
-          <a
-            href={post.originalUrl}
-            target="_blank"
-            className="inline-flex items-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-bold"
-          >
-            <RiArticleLine /> Read Original
-          </a>
-        </article>
-      </main>
+      <p>
+        Source: {post.source?.name}
+      </p>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { WiTime9 } from "react-icons/wi";
+// import { RiArticleLine } from "react-icons/ri";
+
+// const API_URL = "https://applenews.onrender.com";
+
+// export default function PostDetail(props) {
+//   // ✅ SAFE extraction
+//   const params = props?.params || {};
+//   const source = params.source;
+//   const pid = params.pid;
+//   const slug = params.slug;
+
+//   // slug may be undefined or array
+//   const slugString = Array.isArray(slug) ? slug.join("/") : "";
+
+//   const [post, setPost] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     if (!pid || !source) return;
+
+//     const fetchPost = async () => {
+//       try {
+//         const res = await fetch(
+//           `${API_URL}/posts/${source}/${pid}/${slugString}`,
+//           { cache: "no-store" }
+//         );
+
+//         if (!res.ok) throw new Error("Post not found");
+
+//         const data = await res.json();
+//         setPost(data);
+//       } catch (err) {
+//         console.error("Fetch error:", err);
+//         setPost(null);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchPost();
+//   }, [source, pid, slugString]);
+
+//   // ⏳ Loading
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen flex items-center justify-center">
+//         Loading…
+//       </div>
+//     );
+//   }
+
+//   // ❌ Not found
+//   if (!post) {
+//     return (
+//       <div className="min-h-screen flex items-center justify-center">
+//         Post not found
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       <header className="bg-white border-b sticky top-0">
+//         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center">
+//           <Link href="/" className="font-black text-blue-600 text-xl">
+//             FondPeace News
+//           </Link>
+//         </div>
+//       </header>
+
+//       <main className="max-w-4xl mx-auto px-4 py-10">
+//         <article className="bg-white rounded-3xl p-6 md:p-10 shadow">
+//           <span className="text-xs font-bold uppercase bg-blue-600 text-white px-2 py-1 rounded">
+//             {post.source?.name}
+//           </span>
+
+//           <h1 className="text-3xl md:text-5xl font-extrabold mt-4 mb-6">
+//             {post.title}
+//           </h1>
+
+//           <div className="flex items-center gap-2 text-gray-500 mb-6">
+//             <WiTime9 />
+//             <span>
+//               {new Date(post.publishedAt).toLocaleDateString()}
+//             </span>
+//           </div>
+
+//           <img
+//             src={post.image}
+//             alt={post.title}
+//             className="w-full rounded-2xl mb-8"
+//           />
+
+//           <p className="text-xl border-l-4 border-blue-600 pl-4 mb-8">
+//             {post.excerpt}
+//           </p>
+
+//           <a
+//             href={post.originalUrl}
+//             target="_blank"
+//             className="inline-flex items-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl font-bold"
+//           >
+//             <RiArticleLine /> Read Original
+//           </a>
+//         </article>
+//       </main>
+//     </div>
+//   );
+// }
 
 
 
