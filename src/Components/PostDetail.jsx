@@ -15,7 +15,7 @@ export default async function Page({ params }) {
   if (!res.ok) notFound();
 
   const post = await res.json(); // 👈 THIS IS WHAT YOU WANT
-
+  console.log("Post: ", post);
   return (
     <div>
       <h1>{post.title}</h1>
