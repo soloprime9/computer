@@ -43,18 +43,7 @@ export default function FondPeaceNews() {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
       }}>
       
-      {/* Header - Fixed Height & Centered Content */}
-      <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <h1 className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
-          <Link href="/">FondPeace News</Link> </h1>
-          <nav className="hidden sm:flex gap-6 text-sm font-semibold text-gray-600">
-            <span className="hover:text-blue-600 cursor-pointer transition">Apple</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Trending</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Videos</span>
-          </nav>
-        </div>
-      </header>
+      
 
       {/* Main Container */}
       <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 px-4 py-6 md:py-8">
@@ -157,94 +146,7 @@ export default function FondPeaceNews() {
           ))}
         </section>
 
-        {/* Sidebar - Hidden on mobile, visible on Large screens */}
-        <aside className="lg:col-span-4 hidden lg:block space-y-6">
-          <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-            <h3 className="text-xs uppercase tracking-wider font-bold text-blue-600 mb-4">Trending Now</h3>
-            <ul className="space-y-5">
-              {posts.slice(0, 5).map(p => (
-                <li key={p._id} className="group/item cursor-pointer">
-                  <div className="flex gap-3 items-start">
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src={p.image}
-                        alt=""
-                        className="w-16 h-16 rounded-lg object-cover bg-gray-50"
-                      />
-                      <img
-                        src={p.source.logo}
-                        alt=""
-                        className="absolute -bottom-1 -left-1 w-6 h-6 p-1 bg-white rounded-full shadow-sm border border-gray-100 object-contain"
-                      />
-                    </div>
-                    <div className="text-sm font-bold leading-snug group-hover/item:text-blue-600 transition-colors line-clamp-2">
-                      {p.title}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Sidebar Branding Box */}
-          <div className="bg-blue-600 rounded-xl p-6 text-white shadow-xl shadow-blue-100">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-[2px] flex-grow bg-blue-400/50"></div>
-              <span className="text-xl font-black">FondPeace</span>
-              <div className="h-[2px] flex-grow bg-blue-400/50"></div>
-            </div>
-            <div className="space-y-3 text-sm leading-relaxed text-blue-50">
-              <p className="font-semibold">FondPeace is a real-time Apple news aggregator delivering the latest updates on iPhone, Mac, iOS, macOS, and Apple technology from trusted sources.</p>
-              
-              <p className="opacity-80">FondPeace continuously curates news related to iPhone, Mac, iPad, Apple Watch, iOS, macOS, and emerging Apple technologies, helping readers stay informed without visiting multiple sites.</p>
-              <p className="opacity-80">Designed for both desktop and mobile users, FondPeace offers a clean, fast, and distraction-free way to discover, read, and explore important Apple news as it happens.</p>
-            </div>
-          </div>
-        </aside>
-      </main>
-
-      {/* Footer */}
-      <footer className="mt-12 border-t bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {/* Brand */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-900">FondPeace</h2>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                The ultimate destination for Apple enthusiasts. We aggregate and deliver latest news on iPhone, iPad, Mac, iOS, macOS, and Apple ecosystem in real-time.
-              </p>
-            </div>
-
-            {/* Links Sections */}
-            {[
-              { title: "Apple News", links: ["iPhone News", "iPad News", "Mac & macOS", "iOS Updates", "Apple AI"] },
-              { title: "Resources", links: ["About Us", "Contact", "Submit RSS Feed", "Sitemap"] },
-              { title: "Legal", links: ["Privacy Policy", "Terms & Conditions", "Disclaimer"] }
-            ].map((section) => (
-              <div key={section.title}>
-                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
-                  {section.title}
-                </h3>
-                <ul className="space-y-2.5">
-                  {section.links.map(link => (
-                    <li key={link}>
-                      <a href="#" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">{link}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom Footer */}
-          <div className="border-t border-gray-100 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-medium text-gray-400 uppercase tracking-tighter">
-            <p>© {new Date().getFullYear()} FondPeace · Apple News Aggregator</p>
-            <p className="text-center md:text-right max-w-xs">
-              Not affiliated with Apple Inc. All trademarks belong to their respective owners.
-            </p>
-          </div>
-        </div>
-      </footer>
+        
     </div>
   );
 }
