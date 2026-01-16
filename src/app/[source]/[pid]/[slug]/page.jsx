@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import PostPage from "@/Components/PostPage";
-import PostLayoutClient from "@/components/PostLayoutClient";
+import PostLayoutClient from "@/Components/PostLayoutClient";
 export const dynamic = "force-dynamic";
 
 const API_URL = "https://applenews.onrender.com/posts";
