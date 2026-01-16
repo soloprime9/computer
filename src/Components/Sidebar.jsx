@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
+ 
 const API_URL = "https://applenews.onrender.com/posts";
 
 export default function Sidebar() {
