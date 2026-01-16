@@ -10,7 +10,7 @@ export default function PostMainContainer({ post }) {
   if (!post) return null;
 
   return (
-    <main className="lg:w-2/3">
+    <main className="lg:w-1/3">
       {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-snug mb-4">
         {post.title}
