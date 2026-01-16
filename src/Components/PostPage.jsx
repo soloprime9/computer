@@ -49,16 +49,16 @@ export default function PostMainContainer({ post }) {
         <Link
           href={post.originalUrl}
           target="_blank"
-          rel="nofollow noopener noreferrer"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-gray-200 hover:bg-gray-300 
                      text-gray-900 font-semibold px-4 py-2 rounded-md text-sm"
         >
           Read Article
         </Link>
 
-        <button className="inline-flex items-center gap-2 bg-gray-100 
-                           hover:bg-gray-200 px-4 py-2 rounded-md text-sm">
-          Share
+        <button className="inline-flex items-center gap-2 bg-gray-200 
+                           hover:bg-gray-300 px-4 py-2 rounded-md text-sm">
+         <FaShareSquare /> Share
         </button>
       </div>
 
