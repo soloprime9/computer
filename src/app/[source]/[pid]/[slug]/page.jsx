@@ -1,4 +1,5 @@
 import PostPage from "@/Components/PostPage.jsx";
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "FondPeace News – Real-Time Apple News, iPhone, Mac & iOS Updates",
