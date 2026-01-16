@@ -5,6 +5,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { SiPocket } from "react-icons/si";
 import Link from "next/link";
+import { CiShare1 } from "react-icons/ci";
 
 export default function PostMainContainer({ post }) {
   if (!post) return null;
@@ -13,7 +14,9 @@ export default function PostMainContainer({ post }) {
     <main className="lg:w-3/3">
       {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-snug mb-4">
-        {post.title}
+       <a href={post.originalUrl} target="_blank"
+          rel="noopener noreferrer"> {post.title} <CiShare1 /> </a>
+
       </h1>
 
       {/* META ROW */}
@@ -46,7 +49,7 @@ export default function PostMainContainer({ post }) {
 
       {/* ACTION BUTTONS */}
       <div className="flex items-center gap-3 mb-6">
-        <Link
+        <a
           href={post.originalUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -54,7 +57,7 @@ export default function PostMainContainer({ post }) {
                      text-gray-900 font-semibold px-4 py-2 rounded-md text-sm"
         >
           Read Article
-        </Link>
+        </a>
 
         <button className="inline-flex items-center gap-2 bg-gray-200 
                            hover:bg-gray-300 px-4 py-2 rounded-md text-sm">
@@ -65,12 +68,15 @@ export default function PostMainContainer({ post }) {
       {/* IMAGE (MacHash style – right aligned inside content) */}
       {post.image && (
         <div className="flex justify-end mb-6">
+          <a href={post.originalUrl} target="_blank"
+          rel="noopener noreferrer">
           <img
             src={post.image}
             alt={post.title}
             className="w-full max-w-md rounded-md border"
             loading="lazy"
           />
+          </a>
         </div>
       )}
 
