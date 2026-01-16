@@ -76,13 +76,13 @@ export default function FondPeaceNews() {
                   </h2>
                   
                   <p className="text-sm text-gray-600 line-clamp-2 mb-3 leading-relaxed">
-                    <Link
+                    <a
                       href={post.slug}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                     {truncateWords(post.excerpt, 22)}
-                    </Link>
+                    </a>
                   </p>
                 </div>
 
