@@ -145,7 +145,7 @@ export default function FondPeaceNews() {
             </article>
           ))}
         </section>
-
+      </main>
         
     </div>
   );
