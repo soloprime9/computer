@@ -1,4 +1,4 @@
-
+import Sidebar from "./Sidebar";
 import { WiTime9 } from "react-icons/wi";
 import { RiArticleLine } from "react-icons/ri";
 import { FaShareSquare, FaFacebookF } from "react-icons/fa";
@@ -121,7 +121,7 @@ export default function PostPage({ post }) {
     </article>
   </section>
 
-        {/* Sidebar - Hidden on mobile, visible on Large screens */}
+        {/*  Sidebar - Hidden on mobile, visible on Large screens 
         <aside className="lg:col-span-4 hidden lg:block space-y-6">
           <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
             <h3 className="text-xs uppercase tracking-wider font-bold text-blue-600 mb-4">Trending Now</h3>
@@ -150,7 +150,7 @@ export default function PostPage({ post }) {
             </ul>
           </div>
 
-          {/* Sidebar Branding Box */}
+          
           <div className="bg-blue-600 rounded-xl p-6 text-white shadow-xl shadow-blue-100">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-[2px] flex-grow bg-blue-400/50"></div>
@@ -164,7 +164,8 @@ export default function PostPage({ post }) {
               <p className="opacity-80">Designed for both desktop and mobile users, FondPeace offers a clean, fast, and distraction-free way to discover, read, and explore important Apple news as it happens.</p>
             </div>
           </div>
-        </aside>
+        </aside> */}
+      
       </main>
 
       {/* Footer */}
