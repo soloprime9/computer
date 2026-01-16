@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import PostPage from "@/Components/PostPage";
-
+import PostLayoutClient from "@/components/PostLayoutClient";
 export const dynamic = "force-dynamic";
 
 const API_URL = "https://applenews.onrender.com/posts";
@@ -29,5 +29,9 @@ export default async function Page({ params }) {
   const post = await res.json();
   console.log(post);
 
-  return <PostPage post={post} />;
+ return (
+    <PostLayoutClient>
+      <PostPage post={post} />
+    </PostLayoutClient>
+  );
 }
