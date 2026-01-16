@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
 import { WiTime9 } from "react-icons/wi";
 import { RiArticleLine } from "react-icons/ri";
 import { FaShareSquare, FaFacebookF } from "react-icons/fa";
@@ -121,7 +121,7 @@ export default function PostPage({ post }) {
     </article>
   </section>
 
-        <Sidebar />
+        {/* <Sidebar /> */}
       
       </main>
 
