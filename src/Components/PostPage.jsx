@@ -10,29 +10,10 @@ import { SiPocket } from "react-icons/si";
 
 
 
-const API_URL = "https://applenews.onrender.com/posts";
+export default function PostPage({ post }) {
+  if (!post) return null;
 
-export default async function PostPage({ params }) {
-  const { source, pid, slug } = params;
-  console.log(source,pid,slug);
-
-  const res = await fetch(
-    `${API_URL}/${source}/${pid}/${slug}`,
-    { cache: "no-store" }
-  );
-
-  // Backend 301 redirect handling
-  if (res.status === 301 || res.status === 302) {
-    const location = res.headers.get("location");
-    if (location) redirect(location);
-  }
-
-  if (!res.ok) {
-    notFound();
-  }
-
-  const post = await res.json();
-  console.log("Post: ", post);
+ 
 
   return (
     <div className="min-h-screen bg-gray-50 text-slate-900 selection:bg-blue-100" style={{
