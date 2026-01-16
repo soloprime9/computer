@@ -1,4 +1,3 @@
-// import Sidebar from "./Sidebar";
 import { WiTime9 } from "react-icons/wi";
 import { RiArticleLine } from "react-icons/ri";
 import { FaShareSquare, FaFacebookF } from "react-icons/fa";
@@ -8,165 +7,117 @@ import { SiPocket } from "react-icons/si";
 import Link from "next/link";
 
 export default function PostPage({ post }) {
-  if (!post) return null;
+  if (!post) return <div className="p-10 text-center">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 text-slate-900 selection:bg-blue-100" style={{
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-      }}>
-      
-      {/* Header - Fixed Height & Centered Content */}
-      <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <h1 className="text-xl md:text-2xl font-black tracking-tight text-blue-600">
-          <Link href="/">FondPeace News</Link> </h1>
-          <nav className="hidden sm:flex gap-6 text-sm font-semibold text-gray-600">
-            <span className="hover:text-blue-600 cursor-pointer transition">Apple</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Trending</span>
-            <span className="hover:text-blue-600 cursor-pointer transition">Videos</span>
-          </nav>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* HEADER SECTION */}
+      <header className="mb-8 border-b pb-6">
+        <div className="flex items-center gap-2 text-blue-600 font-bold mb-2 uppercase text-sm">
+          <RiArticleLine /> {post.source.name}
+        </div>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+          {post.title}
+        </h1>
+        
+        <div className="flex flex-wrap items-center justify-between gap-4 text-gray-600 text-sm">
+          <div className="flex items-center gap-4">
+            <span className="font-semibold text-gray-900">By {post.author}</span>
+            <span className="flex items-center gap-1">
+              <WiTime9 className="text-lg" /> 
+              {new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                month: 'long', day: 'numeric', year: 'numeric' 
+              })}
+            </span>
+          </div>
+          
+          {/* Social Share Icons */}
+          <div className="flex items-center gap-3 text-lg">
+            <FaFacebookF className="cursor-pointer hover:text-blue-700" />
+            <FaXTwitter className="cursor-pointer hover:text-black" />
+            <SiPocket className="cursor-pointer hover:text-red-500" />
+            <MdEmail className="cursor-pointer hover:text-gray-900" />
+            <FaShareSquare className="cursor-pointer hover:text-green-600" />
+          </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 px-4 py-6 md:py-8">
+      {/* MAIN LAYOUT: Content + Sidebar */}
+      <div className="flex flex-col lg:flex-row gap-12">
         
-        
-        <section className="lg:col-span-8">
-    <article className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-
-      {/* Featured Image */}
-      <div className="w-full h-[220px] sm:h-[320px] md:h-[420px] bg-gray-100 overflow-hidden">
-        <img
-          src={post.image}
-          alt={post.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* Article Body */}
-      <div className="p-5 md:p-7 space-y-5">
-
-        {/* Source + Meta */}
-        <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-gray-500">
-          <div className="flex items-center gap-2">
-            {post.source?.logo && (
-              <img
-                src={post.source.logo}
-                alt={post.source.name}
-                className="w-5 h-5 rounded-sm object-contain bg-gray-50"
-              />
-            )}
-            <span className="text-gray-900">{post.source?.name}</span>
-          </div>
-
-          <span>•</span>
-
-          <span>
-            {new Date(post.publishedAt).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-2xl md:text-3xl font-black leading-tight text-gray-900">
-          {post.title}
-        </h1>
-
-        {/* Author */}
-        {post.author && (
-          <p className="text-sm text-gray-500">
-            By <span className="font-semibold text-gray-700">{post.author}</span>
-          </p>
-        )}
-
-        {/* Excerpt / Description */}
-        <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-          {post.excerpt}
-        </p>
-
-        {/* Actions */}
-        <div className="flex flex-wrap items-center gap-4 pt-4 border-t">
-          <a
-            href={post.originalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-bold hover:bg-blue-700 transition"
-          >
-            Read Full Article
-          </a>
-
-          <button
-            onClick={() => {
-              if (navigator.share) {
-                navigator.share({
-                  title: post.title,
-                  url: post.originalUrl,
-                });
-              } else {
-                navigator.clipboard.writeText(post.originalUrl);
-                alert("Link copied!");
-              }
-            }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-semibold text-gray-700 hover:bg-gray-50 transition"
-          >
-            <FaShareSquare />
-            Share
-          </button>
-        </div>
-      </div>
-    </article>
-  </section>
-
-        {/* <Sidebar /> */}
-      
-      </main>
-
-      {/* Footer */}
-      <footer className="mt-12 border-t bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {/* Brand */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-900">FondPeace</h2>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                The ultimate destination for Apple enthusiasts. We aggregate and deliver latest news on iPhone, iPad, Mac, iOS, macOS, and Apple ecosystem in real-time.
-              </p>
-            </div>
-
-            {/* Links Sections */}
-            {[
-              { title: "Apple News", links: ["iPhone News", "iPad News", "Mac & macOS", "iOS Updates", "Apple AI"] },
-              { title: "Resources", links: ["About Us", "Contact", "Submit RSS Feed", "Sitemap"] },
-              { title: "Legal", links: ["Privacy Policy", "Terms & Conditions", "Disclaimer"] }
-            ].map((section) => (
-              <div key={section.title}>
-                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
-                  {section.title}
-                </h3>
-                <ul className="space-y-2.5">
-                  {section.links.map(link => (
-                    <li key={link}>
-                      <a href="#" className="text-sm text-gray-600 hover:text-blue-600 transition-colors">{link}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom Footer */}
-          <div className="border-t border-gray-100 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-medium text-gray-400 uppercase tracking-tighter">
-            <p>© {new Date().getFullYear()} FondPeace · Apple News Aggregator</p>
-            <p className="text-center md:text-right max-w-xs">
-              Not affiliated with Apple Inc. All trademarks belong to their respective owners.
+        {/* MAIN CONTAINER (Left Side) */}
+        <main className="lg:w-2/3">
+          <img 
+            src={post.image} 
+            alt={post.title} 
+            className="w-full h-auto rounded-xl shadow-lg mb-8"
+          />
+          
+          <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
+            <p className="text-xl font-medium mb-6 text-gray-700">
+              {post.excerpt}
+            </p>
+            {/* Simulation of full content */}
+            <p className="mb-4">
+              Apple’s rumored roadmap is coming into clearer focus. With the iPhone 18 display 
+              technologies leaking, we are seeing a shift toward more integrated AI features 
+              through Siri’s Gemini-powered capabilities...
             </p>
           </div>
-        </div>
-      </footer>
+
+          <div className="mt-10 p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+            <p className="text-sm text-gray-500 mb-2">Original Source:</p>
+            <Link 
+              href={post.originalUrl} 
+              target="_blank"
+              className="text-blue-600 hover:underline font-bold flex items-center gap-2"
+            >
+              Read full article on {post.source.name}
+            </Link>
+          </div>
+        </main>
+
+        {/* SIDEBAR (Right Side) */}
+        <aside className="lg:w-1/3">
+          <div className="sticky top-8 space-y-8">
+            {/* Author/Source Box */}
+            <div className="bg-white p-6 rounded-xl border shadow-sm">
+              <img 
+                src={post.source.logo} 
+                alt={post.source.name} 
+                className="h-12 mb-4 grayscale hover:grayscale-0 transition duration-300"
+              />
+              <h3 className="text-lg font-bold mb-2">About {post.source.name}</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Providing the latest Apple news and rumors with expert analysis.
+              </p>
+              <Link href={post.source.website} className="text-blue-500 text-sm font-semibold">
+                Visit Website →
+              </Link>
+            </div>
+
+            {/* Post Metadata Card */}
+            <div className="bg-gray-900 text-white p-6 rounded-xl">
+              <h3 className="text-lg font-bold mb-4">Post Stats</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Article ID</span>
+                  <span>#{post.pid}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Total Views</span>
+                  <span>{post.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Interactions</span>
+                  <span>{post.clicks}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
     </div>
   );
 }
