@@ -103,6 +103,42 @@ export default async function Page({ params }) {
       {/* ============================
           STRUCTURED DATA (JSON-LD)
       =============================== */}
+      {/* ============================
+          BREADCRUMB STRUCTURED DATA
+      =============================== */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://news.fondpeace.com/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: sourceName,
+                item: `https://news.fondpeace.com/${source}`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.title,
+                item: post.originalUrl,
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* ============================
+          NEWSARTICLE STRUCTURED DATA
+      =============================== */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -115,7 +151,7 @@ export default async function Page({ params }) {
             dateModified: post.publishedAt,
             author: {
               "@type": "Organization",
-              name: post.source?.name,
+              name: sourceName,
               url: post.originalUrl,
             },
             publisher: {
