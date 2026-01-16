@@ -14,10 +14,17 @@ export default function PostMainContainer({ post }) {
     <main className="lg:w-3/3">
       {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-snug mb-4">
-       <a href={post.originalUrl} target="_blank"
-          rel="noopener noreferrer"> {post.title} <CiShare1 /> </a>
-
-      </h1>
+      <a
+        href={post.originalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center ml-2 text-blue-600 hover:underline"
+    aria-label="Open original source"
+      >
+        <span>{post.title}</span>
+        <CiShare1 className="text-xl shrink-0" />
+      </a>
+    </h1>
 
       {/* META ROW */}
       <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
