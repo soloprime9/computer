@@ -17,6 +17,7 @@ export default function FondPeaceNews() {
         const res = await fetch(API_URL);
         const data = await res.json();
         setPosts(data);
+        console.log(data);
       } catch (err) {
         console.error("Failed to load posts", err);
       } finally {
