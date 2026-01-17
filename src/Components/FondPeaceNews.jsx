@@ -113,9 +113,9 @@ export default function FondPeaceNews() {
                   <button 
                     onClick={() => {
                       if (navigator.share) {
-                        navigator.share({ title: post.title, url: post.originalUrl });
+                        navigator.share({ title: post.title, url: post.slug });
                       } else {
-                        navigator.clipboard.writeText(post.originalUrl);
+                        navigator.clipboard.writeText(post.slug);
                         alert("Link copied!");
                       }
                     }}
